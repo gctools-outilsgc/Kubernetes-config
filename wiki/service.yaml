@@ -1,0 +1,123 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wiki
+  namespace: prod
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+  selector: 
+    app: wiki
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: wiki-deployment
+  namespace: prod
+spec:
+  replicas: 1
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: wiki
+    spec:
+      containers:
+      - name: wiki
+        image: phanoix/gcpedia:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: "DOCKER"
+          value: "1"
+        - name: "DBHOST"
+          value: "wiki-db.prod"
+        - name: "HOST"
+          value: "wiki.gccollab.ca"
+        - name: "PORT"
+          value: ""
+        - name: "OPENID"
+          value: "true"
+        volumeMounts:
+        - mountPath: /var/www/html/image
+          name: wiki-data-volume
+        - mountPath: /var/www/html/LocalSettings.php
+          subPath: LocalSettings.php
+          name: wiki-settings
+      - name: parsoid
+        image: phanoix/parsoid:latest
+        ports:
+        - containerPort: 8142
+      - name: render
+        image: msokk/electron-render-service:1.0.0
+        ports:
+        - containerPort: 3000
+        env:
+        - name: "RENDERER_ACCESS_KEY"
+          value: "secret"
+        - name: HOSTNAME
+          value: ""
+        - name: "CONCURRENCY"
+          value: "1"
+        - name: "TIMEOUT"
+          value: "30"
+        - name: "WINDOW_WIDTH"
+          value: "1024"
+        - name: "WINDOW_HEIGHT"
+          value: "768"
+        - name: "PORT"
+          value: "3000"
+      volumes:
+      - name: wiki-data-volume
+        persistentVolumeClaim:
+          claimName: wiki-data-volume-claim
+      - name: wiki-settings
+        configMap:
+          name: wiki-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wiki-db
+  namespace: prod
+spec:
+  clusterIP: None
+  ports: 
+    - protocol: TCP
+      port: 3306
+  selector:
+    app: wiki-db
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: wiki-db-deployment
+  namespace: prod
+spec:
+  replicas: 1 # tells deployment to run 1 pod matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: wiki-db
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:10.3
+        ports:
+        - containerPort: 3306
+        env:
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "gcpedia"
+        - name: "MYSQL_DATABASE"
+          value: "wiki"
+        - name: "MYSQL_USER"
+          value: "wiki"
+        - name: "MYSQL_PASSWORD"
+          value: "gcpedia"
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: wiki-db-volume
+      volumes:
+      - name: wiki-db-volume
+        persistentVolumeClaim:
+          claimName: wiki-db-volume-claim
