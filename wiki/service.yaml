@@ -4,6 +4,7 @@ metadata:
   name: wiki
   namespace: prod
 spec:
+  clusterIP: None
   ports:
     - protocol: TCP
       port: 80
