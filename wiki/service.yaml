@@ -49,6 +49,40 @@ spec:
         image: phanoix/parsoid:latest
         ports:
         - containerPort: 8142
+      volumes:
+      - name: wiki-data-volume
+        persistentVolumeClaim:
+          claimName: wiki-data-volume-claim
+      - name: wiki-settings
+        configMap:
+          name: wiki-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: wiki-pdf
+  namespace: prod
+spec:
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 80
+  selector: 
+    app: wiki
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: wiki-pdf-deployment
+  namespace: prod
+spec:
+  replicas: 1
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: wiki
+    spec:
+      containers:
       - name: render
         image: msokk/electron-render-service:1.0.0
         ports:
@@ -68,13 +102,6 @@ spec:
           value: "768"
         - name: "PORT"
           value: "3000"
-      volumes:
-      - name: wiki-data-volume
-        persistentVolumeClaim:
-          claimName: wiki-data-volume-claim
-      - name: wiki-settings
-        configMap:
-          name: wiki-config
 ---
 apiVersion: v1
 kind: Service
