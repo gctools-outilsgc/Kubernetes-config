@@ -46,9 +46,9 @@ spec:
           subPath: LocalSettings.php
           name: wiki-settings
       - name: parsoid
-        image: phanoix/parsoid:latest
+        image: phanoix/parsoid:local
         ports:
-        - containerPort: 8142
+        - containerPort: 8000
       volumes:
       - name: wiki-data-volume
         persistentVolumeClaim:
