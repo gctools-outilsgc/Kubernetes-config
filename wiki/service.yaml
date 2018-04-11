@@ -66,7 +66,7 @@ spec:
   clusterIP: None
   ports:
     - protocol: TCP
-      port: 80
+      port: 3000
   selector: 
     app: wiki
 ---
