@@ -40,9 +40,9 @@ spec:
         - name: "OPENID"
           value: "true"
         volumeMounts:
-        - mountPath: /var/www/html/images
+        - mountPath: /var/www/html/docker_gcpedia/images
           name: wiki-data-volume
-        - mountPath: /var/www/html/LocalSettings.php
+        - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
           subPath: LocalSettings.php
           name: wiki-settings
       - name: parsoid
