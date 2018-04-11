@@ -44,16 +44,10 @@ spec:
         volumeMounts:
         - mountPath: /app/media
           name: account-data-volume
-        - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
-          subPath: LocalSettings.php
-          name: account-settings
       volumes:
       - name: account-data-volume
         persistentVolumeClaim:
           claimName: account-data-volume-claim
-      - name: account-settings
-        configMap:
-          name: account-config
 ---
 apiVersion: v1
 kind: Service
