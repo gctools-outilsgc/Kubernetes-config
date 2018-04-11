@@ -85,5 +85,8 @@ spec:
           name: account-db-volume
       volumes:
       - name: account-db-volume
-        persistentVolumeClaim:
-          claimName: account-db-volume-claim
+        azureDisk:
+          kind: Managed
+          diskName: accountDBVolume
+          diskURI: 
+
