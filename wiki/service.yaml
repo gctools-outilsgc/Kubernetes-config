@@ -40,7 +40,7 @@ spec:
         - name: "OPENID"
           value: "true"
         volumeMounts:
-        - mountPath: /var/www/html/image
+        - mountPath: /var/www/html/images
           name: wiki-data-volume
         - mountPath: /var/www/html/LocalSettings.php
           subPath: LocalSettings.php
@@ -147,5 +147,7 @@ spec:
           name: wiki-db-volume
       volumes:
       - name: wiki-db-volume
-        persistentVolumeClaim:
-          claimName: wiki-db-volume-claim
+        azureDisk:
+          kind: Managed
+          diskName: wikiDBVolume
+          diskURI: 
