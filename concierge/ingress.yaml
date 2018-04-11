@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: account-ingress
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - account.gccollab.ca
+    secretName: tls-secret
+  rules:
+  - host: account.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: account
+          servicePort: 8000

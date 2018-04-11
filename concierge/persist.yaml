@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: account-data-volume-claim
+  namespace: prod
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: account-db-volume-claim
+  namespace: prod
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: azurefile
+  resources:
+    requests:
+      storage: 5Gi

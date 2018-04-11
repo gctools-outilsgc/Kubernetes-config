@@ -1,0 +1,94 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: account
+  namespace: prod
+spec:
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 8000
+  selector: 
+    app: account
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: account-deployment
+  namespace: prod
+spec:
+  replicas: 1
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: account
+    spec:
+      containers:
+      - name: account
+        image: phanoix/concierge:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: "DEBUG"
+          value: "True"
+        - name: "ALLOWED_HOST"
+          value: "*"
+        - name: "SECRET_KEY"
+          value: "qWxPJrZCLeHZraNTWjEKHdJJxJyho8"
+        - name: "DB_HOST"
+          value: "account-db.prod"
+        - name: "DB_USER"
+          value: "postgres"
+        - name: "DB_PASSWORD"
+          value: "postgres"
+        volumeMounts:
+        - mountPath: /app/media
+          name: account-data-volume
+        - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
+          subPath: LocalSettings.php
+          name: account-settings
+      volumes:
+      - name: account-data-volume
+        persistentVolumeClaim:
+          claimName: account-data-volume-claim
+      - name: account-settings
+        configMap:
+          name: account-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: account-db
+  namespace: prod
+spec:
+  clusterIP: None
+  ports: 
+    - protocol: TCP
+      port: 5432
+  selector:
+    app: account-db
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: account-db-deployment
+  namespace: prod
+spec:
+  replicas: 1 # tells deployment to run 1 pod matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: account-db
+    spec:
+      containers:
+      - name: postgres
+        image: postgres
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+        - mountPath: /var/lib/postgresql/data
+          name: account-db-volume
+      volumes:
+      - name: account-db-volume
+        persistentVolumeClaim:
+          claimName: account-db-volume-claim
