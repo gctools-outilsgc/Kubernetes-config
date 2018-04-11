@@ -81,6 +81,7 @@ spec:
         - containerPort: 5432
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
+          subPath: postgresql-db
           name: account-db-volume
       volumes:
       - name: account-db-volume
