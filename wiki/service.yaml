@@ -76,7 +76,7 @@ spec:
     - protocol: TCP
       port: 3000
   selector: 
-    app: wiki
+    app: wiki-pdf
 ---
 apiVersion: apps/v1beta1
 kind: Deployment
@@ -88,7 +88,7 @@ spec:
   template: # create pods using pod definition in this template
     metadata:
       labels:
-        app: wiki
+        app: wiki-pdf
     spec:
       containers:
       - name: render
