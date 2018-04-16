@@ -39,6 +39,14 @@ spec:
           value: ""
         - name: "OPENID"
           value: "true"
+        livenessProbe:
+          httpGet:
+            path: /Main_Page
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 3
+          timeoutSeconds: 1
+          failureThreshold: 3
         volumeMounts:
         - mountPath: /var/www/html/docker_gcpedia/images
           name: wiki-data-volume
