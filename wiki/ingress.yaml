@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: wiki-ingress
+  namespace: prod
   annotations:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
@@ -9,7 +10,7 @@ spec:
   tls:
   - hosts:
     - wiki.gccollab.ca
-    secretName: tls-secret
+    secretName: wiki-secret
   rules:
   - host: wiki.gccollab.ca
     http:
