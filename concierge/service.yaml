@@ -43,7 +43,7 @@ spec:
           value: "postgres"
         livenessProbe:
           httpGet:
-            path: /Login
+            path: /login
             port: 8000
           initialDelaySeconds: 30
           periodSeconds: 3
