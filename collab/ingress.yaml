@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: collab-ingress
+  namespace: prod
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - gccollab.ca
+    secretName: collab-secret
+  rules:
+  - host: gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: collab
+          servicePort: 80
