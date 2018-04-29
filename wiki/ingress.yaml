@@ -40,4 +40,4 @@ spec:
       - path: /
         backend:
           serviceName: wiki-pdf
-          servicePort: 80
+          servicePort: 3000
