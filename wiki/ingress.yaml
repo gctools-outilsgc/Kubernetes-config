@@ -6,6 +6,8 @@ metadata:
   annotations:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header X-Frame-Options SAMEORIGIN;
 spec:
   tls:
   - hosts:
