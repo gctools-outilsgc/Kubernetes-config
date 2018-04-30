@@ -32,7 +32,7 @@ spec:
         - name: "DOCKER"
           value: "1"
         - name: "DBHOST"
-          value: "wiki-db.prod"
+          value: "wiki-db"
         - name: "HOST"
           value: "wiki.gccollab.ca"
         - name: "PORT"

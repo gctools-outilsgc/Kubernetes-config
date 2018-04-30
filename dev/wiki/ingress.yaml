@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wiki-ingress
+  namespace: dev
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/server-snippet: |
+      add_header X-Frame-Options SAMEORIGIN;
+spec:
+  tls:
+  - hosts:
+    - wiki-dev.gccollab.ca
+    secretName: wiki-secret
+  rules:
+  - host: wiki-dev.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: wiki
+          servicePort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pdf-ingress
+  namespace: dev
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - pdf-dev.gccollab.ca
+    secretName: wiki-pdf-secret
+  rules:
+  - host: pdf-dev.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: wiki-pdf
+          servicePort: 3000

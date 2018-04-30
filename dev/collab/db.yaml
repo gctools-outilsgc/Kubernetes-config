@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: collab-db
+  namespace: dev
+spec:
+  clusterIP: None
+  ports: 
+    - protocol: TCP
+      port: 3306
+  selector:
+    app: collab-db
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: collab-db-deployment
+  namespace: dev
+spec:
+  replicas: 1 # tells deployment to run 1 pod matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: collab-db
+    spec:
+      containers:
+      - name: mysql
+        image: mariadb:10.3
+        ports:
+        - containerPort: 3306
+        env:
+        - name: "MYSQL_ROOT_PASSWORD"
+          value: "gcconnex"
+        - name: "MYSQL_DATABASE"
+          value: "elgg"
+        - name: "MYSQL_USER"
+          value: "elgg"
+        - name: "MYSQL_PASSWORD"
+          value: "gcconnex"
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: collab-db-volume
+      volumes:
+      - name: collab-db-volume
+        azureDisk:
+          kind: Managed
+          diskName: dev-wikiDBVolume-0
+          diskURI: 

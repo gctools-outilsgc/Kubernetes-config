@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: collab
+  namespace: dev
+  labels:
+    app: collab
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+  selector: 
+    app: collab
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: collab-deployment
+  namespace: dev
+spec:
+  replicas: 1
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: collab
+    spec:
+      containers:
+      - name: collab
+        image: phanoix/gcconnex:latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: "DOCKER"
+          value: "1"
+        - name: "HOME"
+          value: "/var/www/html"
+        - name: "DBHOST"
+          value: "collab-db"
+        - name: "WWWROOT"
+          value: "http://dev.gccollab.ca/"
+        volumeMounts:
+        - mountPath: /data
+          name: collab-data-volume
+        - mountPath: /var/www/html/engine/settings.php
+          subPath: settings.php
+          name: collab-settings
+      volumes:
+      - name: collab-data-volume
+        persistentVolumeClaim:
+          claimName: dev-collab-data-volume-claim
+      - name: collab-settings
+        configMap:
+          name: collab-config
