@@ -26,6 +26,7 @@ spec:
       containers:
       - name: wiki
         image: phanoix/gcpedia:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         env:
@@ -75,7 +76,7 @@ spec:
         resources:
           requests:
             memory: "256Mi"
-            cpu: "0.25"
+            cpu: "0.1"
           limits:
             memory: "1Gi"
             cpu: "0.5"
@@ -120,7 +121,7 @@ spec:
         env:
         - name: "RENDERER_ACCESS_KEY"
           value: "secret"
-        - name: HOSTNAME
+        - name: "HOSTNAME"
           value: ""
         - name: "CONCURRENCY"
           value: "1"
@@ -197,8 +198,8 @@ spec:
           value: "gcpedia"
         resources:
           requests:
-            memory: "2Gi"
-            cpu: "0.5"
+            memory: "1Gi"
+            cpu: "0.25"
         volumeMounts:
         - mountPath: /var/lib/mysql
           name: wiki-db-volume
