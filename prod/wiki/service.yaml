@@ -61,7 +61,7 @@ spec:
             memory: "256Mi"
             cpu: "0.1"
           limits:
-            memory: "512Gi"
+            memory: "512Mi"
             cpu: "0.5"
         volumeMounts:
         - mountPath: /var/www/html/docker_gcpedia/images
@@ -78,7 +78,7 @@ spec:
             memory: "128Mi"
             cpu: "0.05"
           limits:
-            memory: "256Gi"
+            memory: "256Mi"
             cpu: "0.5"
       volumes:
       - name: wiki-data-volume
