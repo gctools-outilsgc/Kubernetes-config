@@ -1,0 +1,13 @@
+ apiVersion: autoscaling/v1
+ kind: HorizontalPodAutoscaler
+ metadata:
+   name: wiki
+   namespace: prod
+ spec:
+   minReplicas: 2
+   maxReplicas: 5
+   targetCPUUtilizationPercentage: 75
+   scaleTargetRef:
+     apiVersion: apps/v1beta1
+     kind: Deployment
+     name: wiki-deployment

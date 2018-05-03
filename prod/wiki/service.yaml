@@ -17,7 +17,7 @@ metadata:
   name: wiki-deployment
   namespace: prod
 spec:
-  replicas: 1
+  replicas: 2
   template: # create pods using pod definition in this template
     metadata:
       labels:
