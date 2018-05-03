@@ -52,17 +52,17 @@ spec:
           httpGet:
             path: /Main_Page
             port: 80
-          initialDelaySeconds: 30
+          initialDelaySeconds: 90
           periodSeconds: 3
           timeoutSeconds: 3
           failureThreshold: 3
         resources:
           requests:
             memory: "256Mi"
-            cpu: "0.25"
+            cpu: "0.1"
           limits:
-            memory: "1Gi"
-            cpu: "1"
+            memory: "512Gi"
+            cpu: "0.5"
         volumeMounts:
         - mountPath: /var/www/html/docker_gcpedia/images
           name: wiki-data-volume
@@ -75,10 +75,10 @@ spec:
         - containerPort: 8000
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "0.1"
+            memory: "128Mi"
+            cpu: "0.05"
           limits:
-            memory: "1Gi"
+            memory: "256Gi"
             cpu: "0.5"
       volumes:
       - name: wiki-data-volume
@@ -151,7 +151,7 @@ spec:
           failureThreshold: 3
         resources:
           requests:
-            memory: "256Mi"
+            memory: "128Mi"
             cpu: "0.1"
           limits:
             memory: "512Mi"
