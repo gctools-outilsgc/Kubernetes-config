@@ -9,10 +9,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - message.gccollab.ca
+    - message-dev.gccollab.ca
     secretName: message-secret
   rules:
-  - host: message.gccollab.ca
+  - host: message-dev.gccollab.ca
     http:
       paths:
       - path: /
