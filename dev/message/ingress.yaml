@@ -1,7 +1,7 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: account-ingress
+  name: message-ingress
   namespace: dev
   annotations:
     kubernetes.io/tls-acme: "true"
@@ -9,13 +9,13 @@ metadata:
 spec:
   tls:
   - hosts:
-    - account.gccollab.ca
-    secretName: account-secret
+    - message-dev.gccollab.ca
+    secretName: message-secret
   rules:
-  - host: account.gccollab.ca
+  - host: message-dev.gccollab.ca
     http:
       paths:
       - path: /
         backend:
-          serviceName: account
-          servicePort: 8000
+          serviceName: message
+          servicePort: 8005
