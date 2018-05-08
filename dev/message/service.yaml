@@ -34,9 +34,9 @@ spec:
         - name: "ROOT_URL"
           value: "https://message-dev.gccollab.ca"
         - name: "MONGO_URL"
-          value: "mongodb://mongo:27017/rocketchat/rocketchat?replicaSet=rs0"
+          value: "mongodb://dev-message-db-mongodb-replicaset:27017/rocketchat/rocketchat?replicaSet=rs0"
         - name: "MONGO_OPLOG_URL"
-          value: "mongodb://mongo:27017/local/rocketchat?replicaSet=rs0"
+          value: "mongodb://dev-message-db-mongodb-replicaset:27017/local/rocketchat?replicaSet=rs0"
         livenessProbe:
           httpGet:
             path: /
