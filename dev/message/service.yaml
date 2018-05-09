@@ -30,7 +30,7 @@ spec:
         - containerPort: 8005
         env:
         - name: "PORT"
-          value: 8005
+          value: "8005"
         - name: "ROOT_URL"
           value: "https://message-dev.gccollab.ca"
         - name: "MONGO_URL"
