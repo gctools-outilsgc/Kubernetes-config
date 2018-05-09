@@ -49,6 +49,13 @@ spec:
           periodSeconds: 3
           timeoutSeconds: 1
           failureThreshold: 3
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "0.05"
+          limits:
+            memory: "256Mi"
+            cpu: "0.25"
         volumeMounts:
         - mountPath: /app/media
           name: account-data-volume
@@ -87,6 +94,10 @@ spec:
         image: postgres
         ports:
         - containerPort: 5432
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.05"
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           subPath: postgresql-db
