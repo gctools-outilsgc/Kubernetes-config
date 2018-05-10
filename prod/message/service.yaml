@@ -37,21 +37,29 @@ spec:
           value: "mongodb://message-db-mongodb-replicaset:27017/rocketchat?replicaSet=rs0"
         - name: "MONGO_OPLOG_URL"
           value: "mongodb://message-db-mongodb-replicaset:27017/local?replicaSet=rs0"
-        livenessProbe:
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8005
+          initialDelaySeconds: 10
+          periodSeconds: 6
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
           httpGet:
             path: /
             port: 8005
           initialDelaySeconds: 60
-          periodSeconds: 3
-          timeoutSeconds: 3
-          failureThreshold: 3
+          periodSeconds: 7
+          timeoutSeconds: 10
+          failureThreshold: 5
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "0.05"
+            memory: "400Mi"
+            cpu: "0.1"
           limits:
-            memory: "512Mi"
-            cpu: "0.5"
+            memory: "768Mi"
+            cpu: "0.9"
         volumeMounts:
         - mountPath: /app/uploads
           name: message-data-volume
