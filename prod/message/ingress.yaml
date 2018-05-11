@@ -6,6 +6,8 @@ metadata:
   annotations:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/server-snippet: |
+      set $redirect_to_https 0;
 spec:
   tls:
   - hosts:
