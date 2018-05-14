@@ -15,7 +15,7 @@ helm install stable/kube-lego --namespace kube-system \
 
 ## Metrics services
 
-Prometheus from Helm chart
+Prometheus from Helm chart, rbac needs to be off if using aks:
 ```
 helm install --name promy stable/prometheus --set rbac.create=false --set alertmanager.persistentVolume.storageClass=azurefile --set server.persistentVolume.storageClass=managed-standard --namespace data
 ```
