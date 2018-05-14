@@ -59,7 +59,7 @@ spec:
             cpu: "0.1"
           limits:
             memory: "768Mi"
-            cpu: "0.9"
+            cpu: "0.7"
         volumeMounts:
         - mountPath: /app/uploads
           name: message-data-volume
