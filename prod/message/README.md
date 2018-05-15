@@ -1,4 +1,4 @@
-Note: RocketChat itself doesn't seem to fully support replication, should be kept at replicas=1 to avoid problems.
+Note: RocketChat replication doesn't seem to work well for users behind proxies, should be kept at replicas=1 to avoid problems.
 
 
 
