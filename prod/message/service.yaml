@@ -56,10 +56,10 @@ spec:
         resources:
           requests:
             memory: "400Mi"
-            cpu: "0.1"
+            cpu: "0.25"
           limits:
-            memory: "768Mi"
-            cpu: "0.7"
+            memory: "800Mi"
+            cpu: "1"
         volumeMounts:
         - mountPath: /app/uploads
           name: message-data-volume
