@@ -14,4 +14,4 @@ spec:
     protocol: TCP
     targetPort: db
   selector:
-k8s-app: elasticsearch-logging
+    k8s-app: elasticsearch-logging

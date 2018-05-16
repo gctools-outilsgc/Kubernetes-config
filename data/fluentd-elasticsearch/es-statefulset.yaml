@@ -59,4 +59,4 @@ spec:
         command: ["/sbin/sysctl", "-w", "vm.max_map_count=262144"]
         name: elasticsearch-logging-init
         securityContext:
-privileged: true
+          privileged: true

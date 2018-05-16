@@ -14,4 +14,4 @@ spec:
     protocol: TCP
     targetPort: ui
   selector:
-k8s-app: kibana-logging
+    k8s-app: kibana-logging
