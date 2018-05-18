@@ -7,7 +7,6 @@ metadata:
     k8s-app: fluentd-es
     version: v2.0.4
     kubernetes.io/cluster-service: "true"
-    addonmanager.kubernetes.io/mode: Reconcile
 spec:
   selector:
     matchLabels:
@@ -26,7 +25,6 @@ spec:
         scheduler.alpha.kubernetes.io/critical-pod: ''
     spec:
       priorityClassName: system-node-critical
-      serviceAccountName: fluentd-es
       containers:
       - name: fluentd-es
         image: k8s.gcr.io/fluentd-elasticsearch:v2.0.4
@@ -47,8 +45,6 @@ spec:
           readOnly: true
         - name: config-volume
           mountPath: /etc/fluent/config.d
-      nodeSelector:
-        beta.kubernetes.io/fluentd-ds-ready: "true"
       terminationGracePeriodSeconds: 30
       volumes:
       - name: varlog
