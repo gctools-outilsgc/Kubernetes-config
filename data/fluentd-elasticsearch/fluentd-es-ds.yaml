@@ -16,7 +16,6 @@ spec:
     metadata:
       labels:
         k8s-app: fluentd-es
-        kubernetes.io/cluster-service: "true"
         version: v2.0.4
       # This annotation ensures that fluentd does not get evicted if the node
       # supports critical pod annotation based priority scheme.

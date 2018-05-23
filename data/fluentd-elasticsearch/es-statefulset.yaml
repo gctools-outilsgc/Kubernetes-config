@@ -7,7 +7,6 @@ metadata:
   labels:
     k8s-app: elasticsearch-logging
     version: v5.6.4
-    kubernetes.io/cluster-service: "true"
 spec:
   serviceName: elasticsearch-logging
   replicas: 2
@@ -20,7 +19,6 @@ spec:
       labels:
         k8s-app: elasticsearch-logging
         version: v5.6.4
-        kubernetes.io/cluster-service: "true"
     spec:
       containers:
       - image: k8s.gcr.io/elasticsearch:v5.6.4
