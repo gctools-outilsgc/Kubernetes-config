@@ -9,7 +9,7 @@ metadata:
     version: v5.6.4
 spec:
   serviceName: elasticsearch-logging
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       k8s-app: elasticsearch-logging
@@ -46,7 +46,10 @@ spec:
               fieldPath: metadata.namespace
       volumes:
       - name: elasticsearch-logging
-        emptyDir: {}
+        azureDisk:
+          kind: Managed
+          diskName: esLogsVolume
+          diskURI: 
       # Elasticsearch requires vm.max_map_count to be at least 262144.
       # If your OS already sets up this number to a higher value, feel free
       # to remove this init container.
