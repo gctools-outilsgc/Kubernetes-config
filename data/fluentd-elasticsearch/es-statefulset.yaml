@@ -57,7 +57,6 @@ spec:
   volumeClaimTemplates:
     - metadata:
       name: elasticsearch-logging
-      namespace: data
     spec:
       accessModes:
         - ReadWriteOnce
