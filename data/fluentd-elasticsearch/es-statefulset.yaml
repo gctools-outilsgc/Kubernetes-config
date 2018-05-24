@@ -44,12 +44,17 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-      volumes:
-      - name: elasticsearch-logging
-        azureDisk:
-          kind: Managed
-          diskName: esLogsVolume
-          diskURI: 
+      volumeClaimTemplates:
+        - metadata:
+          name: elasticsearch-logging
+          namespace: data
+        spec:
+          accessModes:
+            - ReadWriteOnly
+          resources:
+            requests:
+              storage: 30Gi
+          storageClassName: managed-standard
       # Elasticsearch requires vm.max_map_count to be at least 262144.
       # If your OS already sets up this number to a higher value, feel free
       # to remove this init container.

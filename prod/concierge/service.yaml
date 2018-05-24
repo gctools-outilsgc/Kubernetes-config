@@ -140,5 +140,5 @@ spec:
         azureDisk:
           kind: Managed
           diskName: accountDBVolume
-          diskURI: 
+          diskURI: /subscriptions/{sub-id}/resourcegroups/{group-name}/providers/microsoft.compute/disks/accountDBVolume
 
