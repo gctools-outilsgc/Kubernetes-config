@@ -55,7 +55,7 @@ spec:
           privileged: true
 
   volumeClaimTemplates:
-    - metadata:
+  - metadata:
       name: elasticsearch-logging
     spec:
       accessModes:
