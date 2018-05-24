@@ -9,7 +9,7 @@ metadata:
     version: v5.6.4
 spec:
   serviceName: elasticsearch-logging
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       k8s-app: elasticsearch-logging
