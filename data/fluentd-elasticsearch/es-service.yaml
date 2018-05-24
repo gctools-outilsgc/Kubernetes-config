@@ -5,7 +5,6 @@ metadata:
   namespace: data
   labels:
     k8s-app: elasticsearch-logging
-    kubernetes.io/cluster-service: "true"
     kubernetes.io/name: "Elasticsearch"
 spec:
   ports:
