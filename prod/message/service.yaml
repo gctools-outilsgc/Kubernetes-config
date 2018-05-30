@@ -30,6 +30,10 @@ spec:
         ports:
         - containerPort: 8005
         env:
+        - name: "INSTANCE_IP"
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
         - name: "PORT"
           value: "8005"
         - name: "ROOT_URL"
