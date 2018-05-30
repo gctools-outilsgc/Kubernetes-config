@@ -47,23 +47,23 @@ spec:
             path: /
             port: 8005
           initialDelaySeconds: 10
-          periodSeconds: 6
-          timeoutSeconds: 5
+          periodSeconds: 8
+          timeoutSeconds: 8
           failureThreshold: 12
         livenessProbe:
           httpGet:
             path: /
             port: 8005
           initialDelaySeconds: 60
-          periodSeconds: 7
-          timeoutSeconds: 10
+          periodSeconds: 12
+          timeoutSeconds: 12
           failureThreshold: 12
         resources:
           requests:
-            memory: "900Mi"
+            memory: "1280Mi"
             cpu: "1"
           limits:
-            memory: "1.5Gi"
+            memory: "2560Gi"
             cpu: "1.2"
         volumeMounts:
         - mountPath: /app/uploads
