@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: collab
-  namespace: gctools-test
+  namespace: prod
   labels:
     app: collab
 spec:
@@ -16,7 +16,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: collab-deployment
-  namespace: gctools-test
+  namespace: prod
 spec:
   #replicas: 1    # don't define number of replicas, let the autoscaler handle this
   template: # create pods using pod definition in this template

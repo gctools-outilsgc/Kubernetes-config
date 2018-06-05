@@ -44,6 +44,10 @@ spec:
         - mountPath: /var/www/html/engine/settings.php
           subPath: settings.php
           name: collab-settings
+      - name: collab-memcached
+        image: memcached:alpine
+        ports:
+        - containerPort: 11211
       volumes:
       - name: collab-data-volume
         persistentVolumeClaim:
