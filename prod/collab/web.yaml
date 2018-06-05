@@ -18,7 +18,7 @@ metadata:
   name: collab-deployment
   namespace: gctools-test
 spec:
-  replicas: 1
+  #replicas: 1    # don't define number of replicas, let the autoscaler handle this
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -44,6 +44,10 @@ spec:
         - mountPath: /var/www/html/engine/settings.php
           subPath: settings.php
           name: collab-settings
+      - name: collab-memcached
+        image: memcached:alpine
+        ports:
+        - containerPort: 11211
       volumes:
       - name: collab-data-volume
         persistentVolumeClaim:
