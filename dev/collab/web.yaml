@@ -29,6 +29,29 @@ spec:
         image: phanoix/gcconnex:latest
         ports:
         - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 30
+          periodSeconds: 3
+          timeoutSeconds: 2
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 90
+          periodSeconds: 6
+          timeoutSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "0.2"
+          limits:
+            memory: "1024Mi"
+            cpu: "0.5"
         env:
         - name: "DOCKER"
           value: "1"
@@ -48,6 +71,13 @@ spec:
         image: memcached:alpine
         ports:
         - containerPort: 11211
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.05"
+          limits:
+            memory: "512Mi"
+            cpu: "0.2"
       volumes:
       - name: collab-data-volume
         persistentVolumeClaim:
