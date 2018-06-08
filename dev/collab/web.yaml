@@ -47,10 +47,10 @@ spec:
           failureThreshold: 3
         resources:
           requests:
-            memory: "512Mi"
-            cpu: "0.2"
+            memory: "128Mi"
+            cpu: "0.05"
           limits:
-            memory: "1024Mi"
+            memory: "256Mi"
             cpu: "0.5"
         env:
         - name: "DOCKER"
@@ -73,10 +73,10 @@ spec:
         - containerPort: 11211
         resources:
           requests:
-            memory: "256Mi"
+            memory: "64Mi"
             cpu: "0.05"
           limits:
-            memory: "512Mi"
+            memory: "128Mi"
             cpu: "0.2"
       volumes:
       - name: collab-data-volume
