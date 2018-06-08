@@ -11,14 +11,14 @@ spec:
       port: 3306
   selector: {}
 ---
-kind: "Endpoints"
-apiVersion: "v1"
+kind: Endpoints
+apiVersion: v1
 metadata:
-  name: "example-external-service" 
+  name: collab-db
   namespace: dev
 subsets: 
 - addresses:
-  - ip: "10.0.0.1"
+  - ip: "10.0.17.4"
   ports:
   - name: "mysql"
     port: 3306
