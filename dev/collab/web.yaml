@@ -59,6 +59,12 @@ spec:
           value: "/var/www/html"
         - name: "DBHOST"
           value: "collab-db"
+        - name: "DBUSER"
+          value: "elgg"
+        - name: "DBPASS"
+          value: "gccollab"
+        - name: "DBNAME"
+          value: "elgg"
         - name: "WWWROOT"
           value: "http://dev.gccollab.ca/"
         volumeMounts:
