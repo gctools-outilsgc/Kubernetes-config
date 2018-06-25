@@ -17,7 +17,7 @@ metadata:
   name: message-deployment
   namespace: prod
 spec:
-  replicas: 1
+  replicas: 3
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: message
-        image: rocketchat/rocket.chat:0.65.1
+        image: rocketchat/rocket.chat:0.65.2
         ports:
         - containerPort: 8005
         env:
@@ -54,16 +54,16 @@ spec:
             path: /
             port: 8005
           initialDelaySeconds: 60
-          periodSeconds: 12
-          timeoutSeconds: 12
+          periodSeconds: 8
+          timeoutSeconds: 8
           failureThreshold: 12
         resources:
           requests:
-            memory: "1280Mi"
-            cpu: "1"
-          limits:
-            memory: "2560Mi"
+            memory: "2048Mi"
             cpu: "1.2"
+          limits:
+            memory: "2048Mi"
+            cpu: "1.4"
         volumeMounts:
         - mountPath: /app/uploads
           name: message-data-volume
