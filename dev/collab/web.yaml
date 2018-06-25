@@ -90,4 +90,5 @@ spec:
           claimName: dev-collab-data-volume-claim
       - name: collab-settings
         configMap:
+          optional: true
           name: collab-config
