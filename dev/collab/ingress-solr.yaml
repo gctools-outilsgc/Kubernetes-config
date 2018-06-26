@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: solr
+  namespace: dev
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - solr.gccollab.ca
+    secretName: solr-secret
+  rules:
+  - host: solr.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: solr
+          servicePort: 80

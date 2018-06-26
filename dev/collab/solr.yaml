@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: solr
+  namespace: dev
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+  selector:
+    app: solr
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: solr
+  namespace: dev
+spec:
+  selector:
+    matchLabels:
+      app: solr
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: solr
+    spec:
+      containers:
+      - name: solr
+        image: pandurx/solr:latest
+        resources:
+          requests:
+            cpu: 100m
+            memory: 100Mi
+        ports:
+        - containerPort: 80
