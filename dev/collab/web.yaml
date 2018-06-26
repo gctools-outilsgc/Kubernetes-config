@@ -70,6 +70,8 @@ spec:
         volumeMounts:
         - mountPath: /data
           name: collab-data-volume
+        - mountPath: /var/www/html/cometchat
+          name: collab-chat-volume
         - mountPath: /var/www/html/engine/settings.php
           subPath: settings.php
           name: collab-settings
@@ -88,6 +90,9 @@ spec:
       - name: collab-data-volume
         persistentVolumeClaim:
           claimName: dev-collab-data-volume-claim
+      - name: collab-chat-volume
+        persistentVolumeClaim:
+          claimName: dev-collab-chat-volume-claim
       - name: collab-settings
         configMap:
           optional: true
