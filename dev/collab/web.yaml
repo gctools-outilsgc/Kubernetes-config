@@ -26,35 +26,36 @@ spec:
     spec:
       containers:
       - name: collab
-        image: phanoix/gcconnex:latest
+        image: phanoix/gcconnex:opcache
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         readinessProbe:
           httpGet:
-            path: /
+            path: /splash/
             port: 80
-          initialDelaySeconds: 30
-          periodSeconds: 3
-          timeoutSeconds: 2
+          initialDelaySeconds: 15
+          periodSeconds: 5
+          timeoutSeconds: 4
           failureThreshold: 3
         livenessProbe:
           httpGet:
-            path: /
+            path: /splash/
             port: 80
           initialDelaySeconds: 90
-          periodSeconds: 6
-          timeoutSeconds: 5
+          periodSeconds: 10
+          timeoutSeconds: 4
           failureThreshold: 3
         resources:
           requests:
             memory: "128Mi"
-            cpu: "0.05"
+            cpu: "0.25"
           limits:
             memory: "256Mi"
             cpu: "0.5"
         env:
         - name: "DOCKER"
-          value: "1"
+          value: ""
         - name: "HOME"
           value: "/var/www/html"
         - name: "DBHOST"
@@ -68,7 +69,7 @@ spec:
         - name: "WWWROOT"
           value: "http://dev.gccollab.ca/"
         volumeMounts:
-        - mountPath: /data
+        - mountPath: /sites/gccollab_data
           name: collab-data-volume
         - mountPath: /var/www/html/cometchat
           name: collab-chat-volume
@@ -84,7 +85,7 @@ spec:
             memory: "64Mi"
             cpu: "0.05"
           limits:
-            memory: "128Mi"
+            memory: "96Mi"
             cpu: "0.2"
       volumes:
       - name: collab-data-volume
