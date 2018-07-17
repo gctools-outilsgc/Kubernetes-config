@@ -15,7 +15,10 @@ helm install stable/kube-lego --namespace kube-system \
 
 ## Metrics services
 
-Prometheus from Helm chart, rbac needs to be off if using aks:
+For some bizzarre reason, aks doesn't deploy with the default metrics-server included which is needed for horizontal pod autoscaling; it can be deployed manually from https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy/1.8%2B
+
+
+Prometheus from Helm chart, rbac needs to be off if using older aks or :
 ```
 helm install --name promy stable/prometheus --set rbac.create=false --set alertmanager.persistentVolume.storageClass=azurefile --set server.persistentVolume.storageClass=managed-standard --namespace data
 ```
