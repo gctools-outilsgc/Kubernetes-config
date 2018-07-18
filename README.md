@@ -15,10 +15,18 @@ helm install stable/kube-lego --namespace kube-system \
 
 ## Metrics services
 
-For some bizzarre reason, aks doesn't deploy with the default metrics-server included which is needed for horizontal pod autoscaling; it can be deployed manually from https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy/1.8%2B
-
+### Prometheus
 
 Prometheus from Helm chart, rbac needs to be off if using older aks or :
 ```
 helm install --name promy stable/prometheus --set rbac.create=false --set alertmanager.persistentVolume.storageClass=azurefile --set server.persistentVolume.storageClass=managed-standard --namespace data
 ```
+
+### Kubernetes metrics server for pod autoscaling
+For some bizzarre reason, aks doesn't deploy with the default metrics-server included which is needed for horizontal pod autoscaling; it can be deployed manually from https://github.com/kubernetes-incubator/metrics-server/tree/master/deploy/1.8%2B
+
+### Node autoscaling
+node autoscaling (for aks, minimum k8s v1.10): https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/azure/cluster-autoscaler-containerservice.yaml  just need to: 
+ * fill out the secrets part, 
+ * replace {{ ca_version }} with autoscaler version (at least 1.2 for azure), and 
+ * replace --nodes=3:10:nodepool1 the min/max node count and node pool name.
