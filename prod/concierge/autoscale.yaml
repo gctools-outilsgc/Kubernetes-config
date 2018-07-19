@@ -1,7 +1,7 @@
 apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
-  name: wiki
+  name: account
   namespace: prod
 spec:
   minReplicas: 2
@@ -10,4 +10,4 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1beta1
     kind: Deployment
-    name: wiki-deployment
+    name: account-deployment
