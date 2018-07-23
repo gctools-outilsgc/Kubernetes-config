@@ -1,0 +1,27 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: data-app-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: data-app
+    spec:
+      containers:
+        - name: main
+          image: index.docker.io/ryanlacroix/gccollab-data-app:latest
+          ports:
+            - containerPort: 2112
+          env:
+          - name: GA-CLIENT-SECRETS
+            valueFrom:
+              secretKeyRef:
+                name: ga-client
+                key: secret_json
+          - name: DB-SECRETS
+            valueFrom:
+              secretKeyRef:
+                name: db-secrets
+                key: secret_json
