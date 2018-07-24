@@ -30,3 +30,5 @@ node autoscaling (for aks, minimum k8s v1.10): https://github.com/kubernetes/aut
  * fill out the secrets part, 
  * replace {{ ca_version }} with autoscaler version (at least 1.2 for azure), and 
  * replace --nodes=3:10:nodepool1 the min/max node count and node pool name.
+ 
+The [README](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/azure/README.md) provides directions on fetching all of that.
