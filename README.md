@@ -19,7 +19,7 @@ helm install stable/kube-lego --namespace kube-system \
 
 Prometheus from Helm chart, rbac needs to be off if using older aks or :
 ```
-helm install --name promy stable/prometheus --set rbac.create=false --set alertmanager.persistentVolume.storageClass=azurefile --set server.persistentVolume.storageClass=managed-standard --namespace data
+helm install --name promy stable/prometheus --set rbac.create=true --set alertmanager.persistentVolume.storageClass=azurefile --set server.persistentVolume.storageClass=managed-standard --namespace data
 ```
 
 ### Kubernetes metrics server for pod autoscaling
