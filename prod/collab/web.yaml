@@ -33,7 +33,7 @@ spec:
           httpGet:
             path: /
             port: 80
-          initialDelaySeconds: 30
+          initialDelaySeconds: 15
           periodSeconds: 3
           timeoutSeconds: 2
           failureThreshold: 3
@@ -43,15 +43,15 @@ spec:
             port: 80
           initialDelaySeconds: 90
           periodSeconds: 6
-          timeoutSeconds: 5
+          timeoutSeconds: 4
           failureThreshold: 3
         resources:
           requests:
             memory: "512Mi"
-            cpu: "0.2"
+            cpu: "0.5"
           limits:
             memory: "1024Mi"
-            cpu: "0.5"
+            cpu: "0.75"
         env:
         - name: "DOCKER"
           value: "1"
@@ -59,6 +59,12 @@ spec:
           value: "/var/www/html"
         - name: "DBHOST"
           value: "collab-db"
+        - name: "DBUSER"
+          value: "elgg"
+        - name: "DBPASS"
+          value: "gccollab"
+        - name: "DBNAME"
+          value: "elgg"
         - name: "WWWROOT"
           value: "http://gccollab.ca/"
         volumeMounts:
@@ -76,7 +82,7 @@ spec:
             memory: "64Mi"
             cpu: "0.05"
           limits:
-            memory: "128Mi"
+            memory: "96Mi"
             cpu: "0.2"
       volumes:
       - name: collab-data-volume
