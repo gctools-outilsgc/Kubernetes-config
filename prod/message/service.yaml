@@ -17,7 +17,7 @@ metadata:
   name: message-deployment
   namespace: prod
 spec:
-  replicas: 3
+  replicas: 4
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -47,16 +47,16 @@ spec:
             port: 8005
           initialDelaySeconds: 10
           periodSeconds: 8
-          timeoutSeconds: 8
-          failureThreshold: 12
+          timeoutSeconds: 4
+          failureThreshold: 3
         livenessProbe:
           httpGet:
             path: /
             port: 8005
-          initialDelaySeconds: 60
+          initialDelaySeconds: 90
           periodSeconds: 8
           timeoutSeconds: 8
-          failureThreshold: 12
+          failureThreshold: 5
         resources:
           requests:
             memory: "2048Mi"
