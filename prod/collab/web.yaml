@@ -54,24 +54,21 @@ spec:
             cpu: "0.75"
         env:
         - name: "DOCKER"
-          value: "1"
+          value: ""
         - name: "HOME"
           value: "/var/www/html"
         - name: "DBHOST"
           value: "collab-db"
-        - name: "DBUSER"
-          value: "elgg"
-        - name: "DBPASS"
-          value: "gccollab"
-        - name: "DBNAME"
-          value: "elgg"
         - name: "WWWROOT"
           value: "http://gccollab.ca/"
         volumeMounts:
-        - mountPath: /data
+        - mountPath: /sites/gccollab_data
           name: collab-data-volume
         - mountPath: /var/www/html/engine/settings.php
           subPath: settings.php
+          name: collab-settings
+        - mountPath: /var/www/html/.htaccess
+          subPath: htaccess
           name: collab-settings
       - name: collab-memcached
         image: memcached:alpine
