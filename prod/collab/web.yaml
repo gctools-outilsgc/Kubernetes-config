@@ -31,7 +31,7 @@ spec:
         - containerPort: 80
         readinessProbe:
           httpGet:
-            path: /
+            path: /splash/
             port: 80
           initialDelaySeconds: 15
           periodSeconds: 3
@@ -39,7 +39,7 @@ spec:
           failureThreshold: 3
         livenessProbe:
           httpGet:
-            path: /
+            path: /splash/
             port: 80
           initialDelaySeconds: 90
           periodSeconds: 6
