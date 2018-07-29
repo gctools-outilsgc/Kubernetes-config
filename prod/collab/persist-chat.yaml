@@ -1,19 +1,19 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: collab-data-volume
+  name: collab-chat-volume
   namespace: prod
 spec:
   capacity:
-    storage: 500Gi
+    storage: 10Gi
   persistentVolumeReclaimPolicy: "Retain"
-  storageClassName: collab-data
+  storageClassName: collab-chat
   accessModes:
     - ReadWriteMany
   azureFile:
     secretName: azure-secret
     # a file share with this name needs to be created manually
-    shareName: collab-data
+    shareName: collab-chat
     readOnly: false
   mountOptions:
     - dir_mode=0777
@@ -22,12 +22,12 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: collab-data-volume-claim
+  name: collab-chat-volume-claim
   namespace: prod
 spec:
   accessModes:
     - ReadWriteMany
-  storageClassName: collab-data
+  storageClassName: collab-chat
   resources:
     requests:
-      storage: 500Gi
+      storage: 10Gi
