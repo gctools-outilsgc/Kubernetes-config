@@ -1,7 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-app
+  namespace: prod
+spec:
+  ports:
+    - protocol: TCP
+      port: 2112
+  selector:
+    app: data-app
+---
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: data-app-deployment
+  namespace: prod
 spec:
   replicas: 2
   template:
@@ -10,7 +23,7 @@ spec:
         app: data-app
     spec:
       containers:
-        - name: main
+        - name: data-app
           image: index.docker.io/ryanlacroix/gccollab-data-app:latest
           ports:
             - containerPort: 2112
@@ -25,3 +38,26 @@ spec:
               secretKeyRef:
                 name: db-secrets
                 key: secret_json
+          readinessProbe:
+            httpGet:
+              path: /index.html
+              port: 2112
+            initialDelaySeconds: 30
+            periodSeconds: 3
+            timeoutSeconds: 1
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /index.html
+              port: 2112
+            initialDelaySeconds: 90
+            periodSeconds: 3
+            timeoutSeconds: 3
+            failureThreshold: 3
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "0.2"
+            limits:
+              memory: "512Mi"
+              cpu: "0.5"
