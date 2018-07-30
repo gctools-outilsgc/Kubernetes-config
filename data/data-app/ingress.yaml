@@ -4,8 +4,18 @@ metadata:
   name: data-app-ingress
   namespace: prod
   annotations:
+    kubernetes.io/tls-acme: "true"
     kubernetes.io/ingress.class: nginx
 spec:
-  backend:
-    serviceName: data-app
-    servicePort: 2112
+  tls:
+  - hosts:
+    - data.gccollab.ca
+    secretName: data-app-secret
+  rules:
+  - host: data.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: data-app
+          servicePort: 2112
