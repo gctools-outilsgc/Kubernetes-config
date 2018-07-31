@@ -11,6 +11,7 @@ as well as kube-lego for automated Let's Encrypt certs:
 helm install stable/kube-lego --namespace kube-system \
   --set config.LEGO_EMAIL={your_email} \
   --set config.LEGO_URL=https://acme-v01.api.letsencrypt.org/directory
+  --set rbac.create=true  (if RBAC is enabled)
 ```
 
 ## Metrics services
