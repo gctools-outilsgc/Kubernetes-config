@@ -5,8 +5,8 @@
    namespace: prod
  spec:
    minReplicas: 2
-   maxReplicas: 3
-   targetCPUUtilizationPercentage: 50
+   maxReplicas: 9
+   targetCPUUtilizationPercentage: 60
    scaleTargetRef:
      apiVersion: apps/v1beta1
      kind: Deployment
