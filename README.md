@@ -5,8 +5,14 @@ Ingress manifests assume that the nginx ingress contriller is installed on the c
 ```
 helm install stable/nginx-ingress --namespace kube-system
 ```
+To also enable autoscaling and resource limits / requests:
+```
+helm install stable/nginx-ingress --namespace kube-system -f nginx-ingress-values.yaml
+```
 
-as well as kube-lego for automated Let's Encrypt certs:
+
+
+kube-lego is used for automated Let's Encrypt certs:
 ```
 helm install stable/kube-lego --namespace kube-system \
   --set config.LEGO_EMAIL={your_email} \
