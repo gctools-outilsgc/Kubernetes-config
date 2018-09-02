@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: memcached
+  namespace: prod
+  labels:
+    app: memcached
+spec:
+  ports:
+    - protocol: TCP
+      port: 11211
+  selector: 
+    app: memcached
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: memcached
+  namespace: prod
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: memcached
+    spec:
+      containers:
+      - name: memcached
+        image: memcached:alpine
+        ports:
+        - containerPort: 11211
+        resources:
+          requests:
+            memory: "64Mi"
+            cpu: "0.1"
+          limits:
+            memory: "96Mi"
+            cpu: "0.4"
