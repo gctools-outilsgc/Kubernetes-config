@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: collab
-        image: phanoix/gcconnex:latest
+        image: phanoix/gcconnex:solr_crawl_auth
         imagePullPolicy: Always
         ports:
         - containerPort: 80
@@ -66,6 +66,8 @@ spec:
           value: "gccollab"
         - name: "DBNAME"
           value: "elgg"
+        - name: "SOLR_CRAWLER"
+          value: "solr-crawler-crytographic-stuff"
         - name: "WWWROOT"
           value: "http://dev.gccollab.ca/"
         volumeMounts:
@@ -91,9 +93,6 @@ spec:
       - name: collab-data-volume
         persistentVolumeClaim:
           claimName: dev-collab-data-volume-claim
-      - name: collab-chat-volume
-        persistentVolumeClaim:
-          claimName: dev-collab-chat-volume-claim
       - name: collab-settings
         configMap:
           optional: true
