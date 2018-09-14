@@ -61,6 +61,11 @@ spec:
           value: "collab-db"
         - name: "WWWROOT"
           value: "http://gccollab.ca/"
+        - name: "SOLR_CRAWLER"
+          valueFrom:
+            secretKeyRef:
+              name: collab-env
+              key: solr_crawler
         volumeMounts:
         - mountPath: /sites/gccollab_data
           name: collab-data-volume
