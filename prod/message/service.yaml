@@ -17,7 +17,7 @@ metadata:
   name: message-deployment
   namespace: prod
 spec:
-  replicas: 5
+  replicas: 6
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -43,16 +43,16 @@ spec:
           value: "mongodb://message-db-mongodb-replicaset-0.message-db-mongodb-replicaset:27017,message-db-mongodb-replicaset-1.message-db-mongodb-replicaset:27017/local?replicaSet=rs0"
         readinessProbe:
           httpGet:
-            path: /
+            path: /api/v1/info
             port: 8005
           initialDelaySeconds: 20
-          periodSeconds: 8
+          periodSeconds: 10
           timeoutSeconds: 4
           failureThreshold: 3
         # due to sticky sessions this has to be very generous, a restart in one pod that's just slow can cause more problems than it solves
         livenessProbe:  
           httpGet:
-            path: /
+            path: /api/v1/info
             port: 8005
           initialDelaySeconds: 360
           periodSeconds: 12

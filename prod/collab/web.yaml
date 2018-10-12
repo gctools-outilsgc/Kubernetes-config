@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: collab
-        image: phanoix/gcconnex:latest
+        image: phanoix/gcconnex@sha256:319f8adb09688420f3128b72d93fe2e056ad1359cb43ffcf540921a5f231fa74
         ports:
         - containerPort: 80
         readinessProbe:
