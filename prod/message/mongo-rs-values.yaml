@@ -1,0 +1,42 @@
+replicas: 3
+port: 27017
+
+auth:
+  enabled: true
+   adminUser: username
+   adminPassword: password
+   metricsUser: metrics
+   metricsPassword: password
+  # key: keycontent
+  # existingKeySecret:
+  # existingAdminSecret:
+  # exisitingMetricsSecret:
+
+# Prometheus Metrics Exporter
+metrics:
+  enabled: true
+
+resources:
+ limits:
+   cpu: 1900m
+   memory: 5120Mi
+ requests:
+   cpu: 1800m
+   memory: 2560Mi
+
+affinity: {}
+
+persistentVolume:
+  enabled: true
+  ## mongodb-replicaset data Persistent Volume Storage Class
+  ## If defined, storageClassName: <storageClass>
+  ## If set to "-", storageClassName: "", which disables dynamic provisioning
+  ## If undefined (the default) or set to null, no storageClassName spec is
+  ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+  ##   GKE, AWS & OpenStack)
+  ##
+  storageClass: "managed-premium"
+  accessModes:  
+    - ReadWriteOnce
+  size: 30Gi
+  annotations: {}
