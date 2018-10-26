@@ -38,7 +38,7 @@ spec:
         - name: "ROOT_URL"
           value: "https://message.gccollab.ca/"
         - name: "MONGO_URL"
-          value: "mongodb://message-db-mongodb-replicaset-0.message-db-mongodb-replicaset:27017,message-db-mongodb-replicaset-1.message-db-mongodb-replicaset:27017/rocketchat?replicaSet=rs0"
+          value: "mongodb://message-db-mongodb-replicaset-0.message-db-mongodb-replicaset:27017,message-db-mongodb-replicaset-1.message-db-mongodb-replicaset:27017/rocketchat?replicaSet=rs0&readPreference=nearest"
         - name: "MONGO_OPLOG_URL"
           value: "mongodb://message-db-mongodb-replicaset-0.message-db-mongodb-replicaset:27017,message-db-mongodb-replicaset-1.message-db-mongodb-replicaset:27017/local?replicaSet=rs0"
         readinessProbe:
@@ -68,7 +68,12 @@ spec:
         volumeMounts:
         - mountPath: /app/uploads
           name: message-data-volume
+        - mountPath: /tmp
+          name: message-tmp-volume
       volumes:
       - name: message-data-volume
         persistentVolumeClaim:
           claimName: message-data-volume-claim
+      - name: message-tmp-volume
+        persistentVolumeClaim:
+          claimName: message-tmp-volume-claim
