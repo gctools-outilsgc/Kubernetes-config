@@ -9,6 +9,6 @@ helm install --name message-db stable/mongodb-replicaset --set replicas=3 --set 
 
 then to scale it up or down:
 ```
-helm upgrade message-db stable/mongodb-replicaset --set replicas=5 --set persistentVolume.storageClass=managed-standard --set persistentVolume.size=30Gi --namespace prod
+helm upgrade message-db stable/mongodb-replicaset --reuse-values --set replicas=5
 ```
 
