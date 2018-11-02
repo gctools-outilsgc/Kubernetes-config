@@ -25,6 +25,7 @@ spec:
       containers:
         - name: data-app
           image: index.docker.io/ryanlacroix/gccollab-data-app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 2112
           env:
@@ -40,7 +41,7 @@ spec:
                 key: secret_json
           readinessProbe:
             httpGet:
-              path: /index.html
+              path: /
               port: 2112
             initialDelaySeconds: 30
             periodSeconds: 3
@@ -48,7 +49,7 @@ spec:
             failureThreshold: 3
           livenessProbe:
             httpGet:
-              path: /index.html
+              path: /
               port: 2112
             initialDelaySeconds: 90
             periodSeconds: 3
