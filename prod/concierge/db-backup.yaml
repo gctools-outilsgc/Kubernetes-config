@@ -1,0 +1,36 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: account-db-backup
+  namespace: prod
+spec:
+  schedule: 44 3 * * *
+  concurrencyPolicy: Allow
+  successfulJobsHistoryLimit: 5
+  failedJobsHistoryLimit: 5
+  suspend: false
+  jobTemplate:
+    metadata:
+      labels:
+        app: account-db-backup
+        cronjob-name:  account-pgdump
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          containers:
+          - name: pgdump
+            image: postgres:10
+            command: ["/bin/bash", "/scripts/backup.sh"]
+            envFrom:
+            - configMapRef:
+                name: account-pgdump-env
+            - secretRef:
+                name: account-pgdump-env
+            volumeMounts:
+            - name: pgdump-script
+              mountPath: /scripts
+          volumes:
+          - name: pgdump-script
+            configMap:
+            name: pgdump-script
