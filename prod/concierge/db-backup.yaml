@@ -4,10 +4,10 @@ metadata:
   name: account-db-backup
   namespace: prod
 spec:
-  schedule: 44 3 * * *
-  concurrencyPolicy: Allow
-  successfulJobsHistoryLimit: 5
-  failedJobsHistoryLimit: 5
+  schedule: 0 3 * * *
+  concurrencyPolicy: Replace
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
   suspend: false
   jobTemplate:
     metadata:
@@ -22,9 +22,7 @@ spec:
           - name: pgdump
             image: postgres:10
             command: ["/bin/bash", "/scripts/backup.sh"]
-            envFrom:
-            - configMapRef:
-                name: account-pgdump-env
+            envFrom
             - secretRef:
                 name: account-pgdump-env
             volumeMounts:
@@ -33,4 +31,4 @@ spec:
           volumes:
           - name: pgdump-script
             configMap:
-            name: pgdump-script
+              name: pgdump-script
