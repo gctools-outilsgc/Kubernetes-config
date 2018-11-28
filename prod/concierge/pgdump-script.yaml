@@ -9,6 +9,6 @@ data:
   script.sh: |
     echo "Started backing up database"
     DATE=$(date +%Y%m%d%H%M%S)
-    pg_dump -h "$HOSTNAME" -U "$USERNAME" postgres > /${DATE}.sql
-    curl curl -X PUT -T /${DATE}.sql -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "${BLOB_URL}"
+    pg_dump -h "$HOSTNAME" -U "$USERNAME" postgres | gzip > /${DATE}.sql.gz
+    curl curl -X PUT -T /${DATE}.sql.gz -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "${BLOB_URL}"
     echo "Finished database backup"
