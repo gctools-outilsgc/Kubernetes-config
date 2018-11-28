@@ -1,0 +1,33 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: wiki-db-backup
+  namespace: prod
+spec:
+  schedule: 0 3 * * *
+  concurrencyPolicy: Replace
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  suspend: false
+  jobTemplate:
+    metadata:
+      labels:
+        app: wiki-db-backup
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          containers:
+          - name: mysqldump
+            image: mariadb
+            command: ["/bin/bash", "/scripts/backup.sh"]
+            envFrom
+            - secretRef:
+                name: wiki-mysqldump
+            volumeMounts:
+            - name: mysqldump-script
+              mountPath: /scripts
+          volumes:
+          - name: mysqldump-script
+            configMap:
+              name: mysqldump-script
