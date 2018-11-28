@@ -10,6 +10,6 @@ data:
   script.sh: |
     echo "Started backing up database"
     DATE=$(date +%Y%m%d%H%M%S)
-    mysqldump -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD wiki | gzip > /${DATE}.sql.gz
+    mysqldump --single-transaction -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD wiki | gzip > /${DATE}.sql.gz
     curl curl -X PUT -T /${DATE}.sql.gz -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "${BLOB_URL}"
     echo "Finished database backup"
