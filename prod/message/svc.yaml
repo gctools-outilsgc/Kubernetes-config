@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: message
+  namespace: prod
+spec:
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 8005
+  selector: 
+    app: message

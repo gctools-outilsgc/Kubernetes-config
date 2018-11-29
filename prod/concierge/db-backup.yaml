@@ -12,8 +12,7 @@ spec:
   jobTemplate:
     metadata:
       labels:
-        app: account-db-backup
-        cronjob-name:  account-pgdump
+        app: account-pgdump
     spec:
       backoffLimit: 1
       template:
@@ -31,4 +30,4 @@ spec:
           volumes:
           - name: pgdump-script
             configMap:
-              name: pgdump-script
+              name: accountpgdump-script

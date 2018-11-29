@@ -5,7 +5,7 @@ metadata:
   name: wiki-mysqldump-script
   namespace: prod
   labels:
-    app: wiki-mysqldump-script
+    app: wiki-mysqldump
 data:
   script.sh: |
     echo "Started backing up database"
