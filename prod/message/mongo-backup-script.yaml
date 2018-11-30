@@ -13,7 +13,8 @@ data:
     echo "Pause secondary"
     mongo db.fsyncLock()
     echo "Create snapshot"
-    curl -X PUT -T /${DATE}.sql.gz -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "${BLOB_URL}"
+    curl -X PUT -T '{ "properties": { "creationData": { "createOption": "Copy", "sourceUri": "/subscriptions/{subscriptionId}/resourceGroups/{YourResourceGroup}/providers/Microsoft.Compute/disks/{YourManagedDiskName}" } }, "location": "canadaeast" }' \
+ -H "x-ms-date: $(date -u)"  "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/snapshots/{snapshotName}?api-version={api-version}"
     echo "Resume secondary"
     db.fsyncLock()
     echo "Finished database backup"
