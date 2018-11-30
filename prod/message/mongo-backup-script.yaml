@@ -13,8 +13,9 @@ data:
     echo "Pause secondary"
     mongo db.fsyncLock()
     echo "Create snapshot"
-    curl -X PUT -T '{ "properties": { "creationData": { "createOption": "Copy", "sourceUri": "/subscriptions/{subscriptionId}/resourceGroups/{YourResourceGroup}/providers/Microsoft.Compute/disks/{YourManagedDiskName}" } }, "location": "canadaeast" }' \
- -H "x-ms-date: $(date -u)"  "https://management.azure.com/subscriptions/{subscriptionId}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/snapshots/{snapshotName}?api-version={api-version}"
+    TOKEN=curl -X POST -d 'grant_type=client_credentials&client_id=${APP_ID}&client_secret=${PASSWORD}&resource=https%3A%2F%2Fmanagement.azure.com%2F' https://login.microsoftonline.com/${TENANT_ID}/oauth2/token
+    curl -X PUT -T '{ "properties": { "creationData": { "createOption": "Copy", "sourceUri": "/subscriptions/{SUBSCRIPTION_ID}/resourceGroups/{RESOURCE_GROUP}/providers/Microsoft.Compute/disks/{DISK_NAME}" } }, "location": "canadaeast" }' \
+ -H "x-ms-date: $(date -u)" -H "Content-type: application/json" -H "Authorization: ${TOKEN}" "https://management.azure.com/subscriptions/{SUBSCRIPTION_ID}/resourceGroups/{RESOURCE_GROUP}/providers/Microsoft.Compute/snapshots/${DATE}?api-version=2018-06-01"
     echo "Resume secondary"
     db.fsyncLock()
     echo "Finished database backup"
