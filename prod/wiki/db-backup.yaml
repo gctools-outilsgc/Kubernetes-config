@@ -4,7 +4,7 @@ metadata:
   name: wiki-db-backup
   namespace: prod
 spec:
-  schedule: 0 3 * * *
+  schedule: 0 8 * * *
   concurrencyPolicy: Replace
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -16,12 +16,13 @@ spec:
     spec:
       backoffLimit: 1
       template:
+        restartPolicy: Never
         spec:
           containers:
           - name: mysqldump
             image: mariadb
-            command: ["/bin/bash", "/scripts/backup.sh"]
-            envFrom
+            command: ["/bin/bash", "/scripts/script.sh"]
+            envFrom:
             - secretRef:
                 name: wiki-mysqldump-env
             volumeMounts:
