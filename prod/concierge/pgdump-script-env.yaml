@@ -11,5 +11,7 @@ data:
     DATE=$(date +%Y%m%d%H%M%S)
     BLOB_URL="https://${STORAGEACCOUNT}.blob.core.windows.net/account-db/${DATE}.sql.gz?${SAS_TOKEN}"
     pg_dump -h "$PGHOST" -U "$PGUSER" postgres | gzip > /${DATE}.sql.gz
+    echo "getting curl and uploading backup"
+    apt-get update && apt-get install -y curl
     curl -X PUT -T /${DATE}.sql.gz -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "${BLOB_URL}"
     echo "Finished database backup"
