@@ -31,4 +31,4 @@ spec:
           volumes:
           - name: pgdump-script
             configMap:
-              name: accountpgdump-script
+              name: account-pgdump-script
