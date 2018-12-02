@@ -12,5 +12,7 @@ data:
     DATE=$(date +%Y%m%d%H%M%S)
     BLOB_URL="https://${STORAGEACCOUNT}.blob.core.windows.net/wiki-db/${DATE}.sql.gz?${SAS_TOKEN}"
     mysqldump --single-transaction -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD wiki | gzip > /${DATE}.sql.gz
+    echo "getting curl and pushing backup"
+    apt-get update && apt-get install -y curl
     curl -X PUT -T /${DATE}.sql.gz -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "${BLOB_URL}"
     echo "Finished database backup"
