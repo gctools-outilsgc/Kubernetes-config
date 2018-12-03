@@ -4,7 +4,7 @@ metadata:
   name: account-db-backup
   namespace: prod
 spec:
-  schedule: 0 8 * * *
+  schedule: 0 7 * * *
   concurrencyPolicy: Replace
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -17,7 +17,7 @@ spec:
       backoffLimit: 1
       template:
         spec:
-          restartPolicy: OnFailure
+          restartPolicy: Never
           containers:
           - name: pgdump
             image: postgres:10
@@ -28,7 +28,12 @@ spec:
             volumeMounts:
             - name: pgdump-script
               mountPath: /scripts
+            - mountPath: /backup
+              name: pgdump-volume
           volumes:
           - name: pgdump-script
             configMap:
               name: account-pgdump-script
+          - name: pgdump-volume
+            persistentVolumeClaim:
+              claimName: account-pgdump-volume-claim
