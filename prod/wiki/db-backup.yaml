@@ -4,7 +4,7 @@ metadata:
   name: wiki-db-backup
   namespace: prod
 spec:
-  schedule: 0 8 * * *
+  schedule: 0 7 * * *
   concurrencyPolicy: Replace
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
@@ -16,8 +16,8 @@ spec:
     spec:
       backoffLimit: 1
       template:
-        restartPolicy: Never
         spec:
+          restartPolicy: Never
           containers:
           - name: mysqldump
             image: mariadb
