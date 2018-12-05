@@ -1,10 +1,10 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: mongo-backup-script
+  name: message-backup-script
   namespace: prod
   labels:
-    app: mongo-backup
+    app: message-backup
 data:
   script.sh: |
     function jsonValue() {
