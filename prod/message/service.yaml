@@ -17,7 +17,7 @@ metadata:
   name: message-deployment
   namespace: prod
 spec:
-  replicas: 5
+  replicas: 4
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: message
-        image: rocketchat/rocket.chat:0.72.0
+        image: rocketchat/rocket.chat:0.72.2
         ports:
         - containerPort: 8005
         env:
@@ -49,7 +49,7 @@ spec:
             port: 8005
           initialDelaySeconds: 20
           periodSeconds: 10
-          timeoutSeconds: 4
+          timeoutSeconds: 6
           failureThreshold: 3
         # due to sticky sessions this has to be very generous, a restart in one pod that's just slow can cause more problems than it solves
         livenessProbe:  
