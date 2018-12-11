@@ -17,6 +17,7 @@ data:
     echo "Pause instance 0"
     mongo --host=message-db-mongodb-replicaset-0.message-db-mongodb-replicaset --eval="db.fsyncLock()"
     echo "Create snapshot"
+    apt-get update && apt-get install -y curl
     TOKEN=`curl -X POST -d "grant_type=client_credentials&client_id=${APP_ID}&client_secret=${PASSWORD}&resource=https%3A%2F%2Fmanagement.azure.com%2F" https://login.microsoftonline.com/${TENANT_ID}/oauth2/token | jsonValue access_token 1`
     curl -X PUT -d "{ 'properties': { 'creationData': { 'createOption': 'Copy', 'sourceUri': '/subscriptions/"$SUBSCRIPTION_ID"/resourceGroups/"$RESOURCE_GROUP"/providers/Microsoft.Compute/disks/"$DISK_NAME"' } }, 'location': 'canadaeast' }" \
       -H "Content-type: application/json" -H "Authorization: Bearer ${TOKEN}" \
