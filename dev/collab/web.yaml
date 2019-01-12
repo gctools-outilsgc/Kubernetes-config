@@ -68,6 +68,8 @@ spec:
           value: "elgg"
         - name: "SOLR_CRAWLER"
           value: "solr-crawler-crytographic-stuff"
+        - name: "SOLR_CRAWLER_USER"
+          value: "1"
         - name: "WWWROOT"
           value: "http://dev.gccollab.ca/"
         volumeMounts:
