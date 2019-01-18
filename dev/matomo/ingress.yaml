@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: matomo-ingress
+  namespace: analytics
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: nginx
+spec:
+  tls:
+  - hosts:
+    - analytics.gccollab.ca
+    secretName: matomo-secret
+  rules:
+  - host: analytics.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: matomo
+          servicePort: 80

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: matomo
+  name: matomo
+  namespace: analytics
+spec:
+  type: NodePort
+  ports:
+   - port: 80
+     protocol: TCP
+  selector:
+    app: matomo

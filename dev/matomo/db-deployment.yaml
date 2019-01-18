@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: mariadb
+  name: mariadb
+  namespace: analytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mariadb
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - image: bitnami/mariadb:latest
+        name: mariadb
+        ports:
+          - containerPort: 3306
+        env:
+        - name: MARIADB_USER
+          value: matomo
+        - name: MARIADB_DATABASE
+          value: matomo
+        - name: MARIADB_PASSWORD
+          value: birch5
+        - name: MARIADB_ROOT_PASSWORD
+          value: birch5
+        volumeMounts:
+        - name: matomo-disk
+          mountPath: /var/lib/mysql
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "0.05"
+      volumes:
+      - name: matomo-disk

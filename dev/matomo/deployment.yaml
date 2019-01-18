@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: matomo
+  name: matomo
+  namespace: analytics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: matomo
+  template:
+    metadata:
+      labels:
+        app: matomo
+    spec:
+      containers:
+      - image: index.docker.io/addyvan/matomo:latest
+        name: matomo
+        ports:
+          - containerPort: 80
+        env:
+        - name: MARIADB_HOST
+          value: mariadb
+        - name: MARIADB_PORT_NUMBER
+          value: "3306"
+        - name: MATOMO_DATABASE_USER
+          value: matomo
+        - name: MATOMO_DATABASE_NAME
+          value: matomo
+        - name: MATOMO_DATABASE_PASSWORD
+          value: birch5
+        - name: MATOMO_EMAIL
+          value: Addison.vdh@gmail.com
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "0.1"
+          limits:
+            memory: "2048Mi"
+            cpu: "0.2"
