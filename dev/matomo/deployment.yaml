@@ -20,19 +20,9 @@ spec:
         name: matomo
         ports:
           - containerPort: 80
-        env:
-        - name: MARIADB_HOST
-          value: mariadb
-        - name: MARIADB_PORT_NUMBER
-          value: "3306"
-        - name: MATOMO_DATABASE_USER
-          value: matomo
-        - name: MATOMO_DATABASE_NAME
-          value: matomo
-        - name: MATOMO_DATABASE_PASSWORD
-          value: birch5
-        - name: MATOMO_EMAIL
-          value: Addison.vdh@gmail.com
+        envFrom:
+        - configMapRef:
+            name: matomo-config
         resources:
           requests:
             memory: "128Mi"

@@ -20,15 +20,9 @@ spec:
         name: mariadb
         ports:
           - containerPort: 3306
-        env:
-        - name: MARIADB_USER
-          value: matomo
-        - name: MARIADB_DATABASE
-          value: matomo
-        - name: MARIADB_PASSWORD
-          value: birch5
-        - name: MARIADB_ROOT_PASSWORD
-          value: birch5
+        envFrom:
+        - configMapRef:
+            name: matomo-db-config
         volumeMounts:
         - name: matomo-disk
           mountPath: /var/lib/mysql
