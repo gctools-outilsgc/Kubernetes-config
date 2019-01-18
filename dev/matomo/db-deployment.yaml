@@ -27,8 +27,8 @@ spec:
         - name: matomo-disk
           mountPath: /var/lib/mysql
         resources:
-          requests:
-            memory: "512Mi"
+          limits:
+            memory: "1024Mi"
             cpu: "0.05"
       volumes:
       - name: matomo-disk

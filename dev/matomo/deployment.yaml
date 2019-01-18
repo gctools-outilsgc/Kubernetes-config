@@ -24,9 +24,6 @@ spec:
         - configMapRef:
             name: matomo-config
         resources:
-          requests:
-            memory: "128Mi"
-            cpu: "0.1"
           limits:
             memory: "2048Mi"
             cpu: "0.2"
