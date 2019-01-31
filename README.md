@@ -50,3 +50,14 @@ From istio release:
 ```helm install install/kubernetes/helm/istio --name istio --namespace istio-system --set certmanager.enabled=true```
 
 additional options: https://istio.io/docs/reference/config/installation-options/
+
+By default this will intall the sidecar auto-injector, to use it a namespace will need to be properly labeled, for example:
+```
+kubectl label namespace prod istio-injection=enabled
+```
+
+Notes for deployment, service, etc. manifests for use with istio:
+ * Service ports need to have names
+ * ClusterIP type Services need to not be headless if it is to accept ingress gateway traffic - that is, it must not have clusterIP: None
+ * Deployments need version labels, such as  ``` version: v1```
+ * By default with the helm install mutual tls will be enabled which will prevent any inter-service communication unless an appropriate DestinationRule is set up
