@@ -43,7 +43,7 @@ The [README](https://github.com/kubernetes/autoscaler/blob/master/cluster-autosc
 
 ## Istio
 
-## [helm install](https://istio.io/docs/setup/kubernetes/helm-install/)
+### [helm install](https://istio.io/docs/setup/kubernetes/helm-install/)
 From istio release:
 
 ```helm install install/kubernetes/helm/istio --name istio --namespace istio-system```
