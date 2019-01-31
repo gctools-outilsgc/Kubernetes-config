@@ -46,5 +46,6 @@ The [README](https://github.com/kubernetes/autoscaler/blob/master/cluster-autosc
 ### [helm install](https://istio.io/docs/setup/kubernetes/helm-install/)
 From istio release:
 
-```helm install install/kubernetes/helm/istio --name istio --namespace istio-system```
+```helm install install/kubernetes/helm/istio --name istio --namespace istio-system --set certmanager.enabled=true```
+
 additional options: https://istio.io/docs/reference/config/installation-options/
