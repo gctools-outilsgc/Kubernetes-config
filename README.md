@@ -23,6 +23,7 @@ helm install stable/kube-lego --namespace kube-system \
 ## Metrics services
 
 ### Prometheus
+Note: Prometheus is included in the istio helm chart by default
 
 Prometheus from Helm chart, rbac needs to be off if using older aks or :
 ```
