@@ -39,3 +39,12 @@ node autoscaling (for aks, minimum k8s v1.10): https://github.com/kubernetes/aut
  * replace --nodes=3:10:nodepool1 the min/max node count and node pool name.
  
 The [README](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/azure/README.md) provides directions on fetching all of that.
+
+
+## Istio
+
+## [helm install](https://istio.io/docs/setup/kubernetes/helm-install/)
+From istio release:
+
+```helm install install/kubernetes/helm/istio --name istio --namespace istio-system```
+additional options: https://istio.io/docs/reference/config/installation-options/
