@@ -61,3 +61,4 @@ Notes for deployment, service, etc. manifests for use with istio:
  * ClusterIP type Services need to not be headless if it is to accept ingress gateway traffic - that is, it must not have clusterIP: None
  * Deployments need version labels, such as  ``` version: v1```
  * By default with the helm install mutual tls will be enabled which will prevent any inter-service communication unless an appropriate DestinationRule is set up
+ * Istio / envoy doesn't seem to support let's encrypt certs, that whole area seems to be left as an excercise for the user, but ignoring the istio ingress and using the same nginx-ingress from the first part of this readme with cert-manager does seem to work.
