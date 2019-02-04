@@ -1,0 +1,17 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: collab-tls-secret
+spec:
+  secretName: collab-tls-secret
+  dnsNames:
+  - gccollab.ca
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - gccollab.ca
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
