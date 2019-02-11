@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: message
-        image: rocketchat/rocket.chat:0.74.1
+        image: rocketchat/rocket.chat:0.74.2
         ports:
         - containerPort: 8005
         env:
