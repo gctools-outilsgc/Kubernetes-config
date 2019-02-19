@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki
-  namespace: dev
+  namespace: gcpedia
 spec:
   clusterIP: None
   ports:
@@ -15,7 +15,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-deployment
-  namespace: dev
+  namespace: gcpedia
 spec:
   replicas: 1
   template: # create pods using pod definition in this template
@@ -62,12 +62,12 @@ spec:
           limits:
             memory: "1Gi"
             cpu: "1"
-        volumeMounts:
-        - mountPath: /var/www/html/docker_gcpedia/images
-          name: wiki-data-volume
-        - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
-          subPath: LocalSettings.php
-          name: wiki-settings
+#        volumeMounts:
+#        - mountPath: /var/www/html/docker_gcpedia/images
+#          name: wiki-data-volume
+#        - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
+#          subPath: LocalSettings.php
+#          name: wiki-settings
       - name: parsoid
         image: phanoix/parsoid:local
         ports:
@@ -79,19 +79,19 @@ spec:
           limits:
             memory: "1Gi"
             cpu: "0.5"
-      volumes:
-      - name: wiki-data-volume
-        persistentVolumeClaim:
-          claimName: dev-wiki-data-volume-claim
-      - name: wiki-settings
-        configMap:
-          name: wiki-config
+#      volumes:
+#      - name: wiki-data-volume
+#        persistentVolumeClaim:
+#          claimName: dev-wiki-data-volume-claim
+#      - name: wiki-settings
+#        configMap:
+#          name: wiki-config
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: wiki-pdf
-  namespace: dev
+  namespace: gcpedia
 spec:
   clusterIP: None
   ports:
@@ -104,7 +104,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-pdf-deployment
-  namespace: dev
+  namespace: gcpedia
 spec:
   replicas: 1
   template: # create pods using pod definition in this template
@@ -160,7 +160,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki-db
-  namespace: dev
+  namespace: gcpedia
 spec:
   clusterIP: None
   ports: 
@@ -173,7 +173,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-db-deployment
-  namespace: dev
+  namespace: gcpedia
 spec:
   replicas: 1 # tells deployment to run 1 pod matching the template
   template: # create pods using pod definition in this template
@@ -199,12 +199,12 @@ spec:
           requests:
             memory: "2Gi"
             cpu: "0.5"
-        volumeMounts:
-        - mountPath: /var/lib/mysql
-          name: wiki-db-volume
-      volumes:
-      - name: wiki-db-volume
-        azureDisk:
-          kind: Managed
-          diskName: dev-wikiDBVolume
-          diskURI: 
+#        volumeMounts:
+#        - mountPath: /var/lib/mysql
+#          name: wiki-db-volume
+#      volumes:
+#      - name: wiki-db-volume
+#        azureDisk:
+#          kind: Managed
+#          diskName: dev-wikiDBVolume
+#          diskURI: 
