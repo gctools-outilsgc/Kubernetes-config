@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki
-  namespace: gcpedia
+  namespace: dev
 spec:
   clusterIP: None
   ports:
@@ -15,7 +15,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-deployment
-  namespace: gcpedia
+  namespace: dev
 spec:
   replicas: 1
   template: # create pods using pod definition in this template
@@ -91,7 +91,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki-pdf
-  namespace: gcpedia
+  namespace: dev
 spec:
   clusterIP: None
   ports:
@@ -104,7 +104,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-pdf-deployment
-  namespace: gcpedia
+  namespace: dev
 spec:
   replicas: 1
   template: # create pods using pod definition in this template
@@ -160,7 +160,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki-db
-  namespace: gcpedia
+  namespace: dev
 spec:
   clusterIP: None
   ports: 
@@ -173,7 +173,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-db-deployment
-  namespace: gcpedia
+  namespace: dev
 spec:
   replicas: 1 # tells deployment to run 1 pod matching the template
   template: # create pods using pod definition in this template
