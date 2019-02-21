@@ -63,4 +63,4 @@ spec:
       resources:
         requests:
           storage: 30Gi
-      storageClassName: managed-standard
+      storageClassName: managed-premium
