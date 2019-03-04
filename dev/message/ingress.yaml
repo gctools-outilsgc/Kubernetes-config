@@ -4,7 +4,8 @@ metadata:
   name: message-ingress
   namespace: message-dev
   annotations:
-    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/affinity: "cookie"
     nginx.ingress.kubernetes.io/session-cookie-name: "route"
@@ -13,7 +14,7 @@ spec:
   tls:
   - hosts:
     - message-dev.gccollab.ca
-    secretName: message-secret
+    secretName: message-dev-tls-secret
   rules:
   - host: message-dev.gccollab.ca
     http:
