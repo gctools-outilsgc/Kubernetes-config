@@ -1,0 +1,18 @@
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: Certificate
+metadata:
+  name: wiki-dev-tls-secret
+  namespace: dev
+spec:
+  secretName: wiki-dev-tls-secret
+  dnsNames:
+  - dev.wiki.gccollab.ca
+  acme:
+    config:
+    - http01:
+        ingressClass: nginx
+      domains:
+      - dev.wiki.gccollab.ca
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer

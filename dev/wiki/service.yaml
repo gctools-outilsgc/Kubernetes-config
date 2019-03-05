@@ -4,10 +4,10 @@ metadata:
   name: wiki
   namespace: dev
 spec:
-  clusterIP: None
   ports:
     - protocol: TCP
       port: 80
+      name: http
   selector: 
     app: wiki
 ---
@@ -22,6 +22,7 @@ spec:
     metadata:
       labels:
         app: wiki
+        version: v1
     spec:
       containers:
       - name: wiki
@@ -34,7 +35,7 @@ spec:
         - name: "DBHOST"
           value: "wiki-db"
         - name: "HOST"
-          value: "wiki-dev.gccollab.ca"
+          value: "dev.wiki.gccollab.ca"
         - name: "PORT"
           value: ""
         - name: "OPENID"
@@ -62,9 +63,9 @@ spec:
           limits:
             memory: "1Gi"
             cpu: "1"
-#        volumeMounts:
-#        - mountPath: /var/www/html/docker_gcpedia/images
-#          name: wiki-data-volume
+        volumeMounts:
+        - mountPath: /var/www/html/docker_gcpedia/images
+          name: wiki-data-volume
 #        - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
 #          subPath: LocalSettings.php
 #          name: wiki-settings
@@ -78,11 +79,11 @@ spec:
             cpu: "0.1"
           limits:
             memory: "1Gi"
-            cpu: "0.5"
-#      volumes:
-#      - name: wiki-data-volume
-#        persistentVolumeClaim:
-#          claimName: dev-wiki-data-volume-claim
+            cpu: "0.2"
+      volumes:
+      - name: wiki-data-volume
+        persistentVolumeClaim:
+          claimName: dev-wiki-data-volume-claim
 #      - name: wiki-settings
 #        configMap:
 #          name: wiki-config
@@ -97,6 +98,7 @@ spec:
   ports:
     - protocol: TCP
       port: 3000
+      name: wiki-pdf
   selector: 
     app: wiki-pdf
 ---
@@ -111,6 +113,7 @@ spec:
     metadata:
       labels:
         app: wiki-pdf
+        version: v1
     spec:
       containers:
       - name: render
@@ -166,6 +169,7 @@ spec:
   ports: 
     - protocol: TCP
       port: 3306
+      name: mysql
   selector:
     app: wiki-db
 ---
@@ -180,6 +184,7 @@ spec:
     metadata:
       labels:
         app: wiki-db
+        version: v10
     spec:
       containers:
       - name: mariadb
@@ -199,12 +204,10 @@ spec:
           requests:
             memory: "2Gi"
             cpu: "0.5"
-#        volumeMounts:
-#        - mountPath: /var/lib/mysql
-#          name: wiki-db-volume
-#      volumes:
-#      - name: wiki-db-volume
-#        azureDisk:
-#          kind: Managed
-#          diskName: dev-wikiDBVolume
-#          diskURI: 
+        volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: wiki-db-volume
+      volumes:
+      - name: wiki-db-volume
+        persistentVolumeClaim:
+          claimName: dev-wiki-db-volume

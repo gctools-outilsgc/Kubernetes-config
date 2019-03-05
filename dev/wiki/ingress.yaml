@@ -4,17 +4,18 @@ metadata:
   name: wiki-ingress
   namespace: dev
   annotations:
-    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/server-snippet: |
       add_header X-Frame-Options SAMEORIGIN;
 spec:
   tls:
   - hosts:
-    - wiki-dev.gccollab.ca
-    secretName: wiki-secret
+    - dev.wiki.gccollab.ca
+    secretName: wiki-dev-tls-secret
   rules:
-  - host: wiki-dev.gccollab.ca
+  - host: dev.wiki.gccollab.ca
     http:
       paths:
       - path: /
@@ -28,15 +29,16 @@ metadata:
   name: pdf-ingress
   namespace: dev
   annotations:
-    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: nginx
+    certmanager.k8s.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:
   - hosts:
-    - pdf-dev.gccollab.ca
-    secretName: wiki-pdf-secret
+    - dev.pdf.gccollab.ca
+    secretName: pdf-dev-tls-secret
   rules:
-  - host: pdf-dev.gccollab.ca
+  - host: dev.pdf.gccollab.ca
     http:
       paths:
       - path: /
