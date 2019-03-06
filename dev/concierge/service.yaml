@@ -4,10 +4,10 @@ metadata:
   name: account
   namespace: dev
 spec:
-  clusterIP: None
   ports:
     - protocol: TCP
       port: 8000
+      name: http
   selector: 
     app: account
 ---
@@ -22,6 +22,7 @@ spec:
     metadata:
       labels:
         app: account
+        version: v1
     spec:
       containers:
       - name: account
@@ -67,6 +68,7 @@ spec:
   ports: 
     - protocol: TCP
       port: 5432
+      name: postgres
   selector:
     app: account-db
 ---
@@ -81,10 +83,11 @@ spec:
     metadata:
       labels:
         app: account-db
+        version: v10
     spec:
       containers:
       - name: postgres
-        image: postgres
+        image: postgres:10
         ports:
         - containerPort: 5432
         volumeMounts:
@@ -93,8 +96,6 @@ spec:
           name: account-db-volume
       volumes:
       - name: account-db-volume
-        azureDisk:
-          kind: Managed
-          diskName: dev-accountDBVolume
-          diskURI: 
+        persistentVolumeClaim:
+          claimName: dev-account-db-volume
 

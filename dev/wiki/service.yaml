@@ -66,9 +66,9 @@ spec:
         volumeMounts:
         - mountPath: /var/www/html/docker_gcpedia/images
           name: wiki-data-volume
-#        - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
-#          subPath: LocalSettings.php
-#          name: wiki-settings
+        - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
+          subPath: LocalSettings.php
+          name: wiki-settings
       - name: parsoid
         image: phanoix/parsoid:local
         ports:
@@ -84,9 +84,9 @@ spec:
       - name: wiki-data-volume
         persistentVolumeClaim:
           claimName: dev-wiki-data-volume-claim
-#      - name: wiki-settings
-#        configMap:
-#          name: wiki-config
+      - name: wiki-settings
+        configMap:
+          name: wiki-config
 ---
 apiVersion: v1
 kind: Service

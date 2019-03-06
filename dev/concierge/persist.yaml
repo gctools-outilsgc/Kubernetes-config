@@ -31,3 +31,17 @@ spec:
   resources:
     requests:
       storage: 10Gi
+---
+# db volume
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dev-account-db-volume
+  namespace: dev
+spec:
+  accessModes:
+  - ReadWriteOnce
+  storageClassName: managed-premium
+  resources:
+    requests:
+      storage: 1Gi
