@@ -1,0 +1,8 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: collab-db
+  namespace: dev
+spec:
+  type: ExternalName
+  externalName: collab-dev-db-name.mysql.database.azure.com
