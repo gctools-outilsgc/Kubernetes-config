@@ -9,6 +9,7 @@ spec:
   ports:
     - protocol: TCP
       port: 80
+      name: http
   selector: 
     app: collab
 ---
@@ -23,10 +24,11 @@ spec:
     metadata:
       labels:
         app: collab
+        version: v1
     spec:
       containers:
       - name: collab
-        image: phanoix/gcconnex:solr_crawl_auth
+        image: phanoix/gcconnex:latest
         imagePullPolicy: Always
         ports:
         - containerPort: 80
