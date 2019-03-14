@@ -1,0 +1,14 @@
+# for prometheus metrics scraping
+apiVersion: v1
+kind: Service
+metadata:
+  name: messagepromy
+  namespace: message-dev
+spec:
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 9458
+      name: promy-scrape
+  selector: 
+    app: message
