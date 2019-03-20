@@ -1,0 +1,5 @@
+replicas: 1
+
+configmap:
+  storage:
+    engine: mmapv1
