@@ -32,10 +32,14 @@ spec:
         env:
         - name: "DEBUG"
           value: "True"
-        - name: "ALLOWED_HOST"
+        - name: "CONCIERGE_ALLOWED_HOST"
           value: "*"
-        - name: "SECRET_KEY"
+        - name: "CONCIERGE_SECRET_KEY"
           value: "qWxPJrZCLeHZraNTWjEKHdJJxJyho8"
+        - name: "CONCIERGE_DATABASE_URL"
+          value: "postgres://postgres:postgres@account-db:5432/postgres"
+        - name: "SEND_SUSPICIOUS_BEHAVIOR_WARNINGS"
+          value: "True"
         - name: "DB_HOST"
           value: "account-db"
         - name: "DB_USER"
@@ -58,6 +62,7 @@ spec:
         persistentVolumeClaim:
           claimName: dev-account-data-volume-claim
 ---
+# postgres
 apiVersion: v1
 kind: Service
 metadata:
@@ -98,4 +103,37 @@ spec:
       - name: account-db-volume
         persistentVolumeClaim:
           claimName: dev-account-db-volume
-
+---
+# redis
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: dev
+spec:
+  clusterIP: None
+  ports: 
+    - protocol: TCP
+      port: 6379
+      name: redis
+  selector:
+    app: account-redis
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: dev
+spec:
+  replicas: 1 # tells deployment to run 1 pod matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: account-redis
+        version: v1
+    spec:
+      containers:
+      - name: redis
+        image: redis:alpine
+        ports:
+        - containerPort: 6379
