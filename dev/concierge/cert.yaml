@@ -10,7 +10,7 @@ spec:
   acme:
     config:
     - http01:
-        ingressClass: nginx
+        ingressClass: istio
       domains:
       - account-dev.gccollab.ca
   issuerRef:
