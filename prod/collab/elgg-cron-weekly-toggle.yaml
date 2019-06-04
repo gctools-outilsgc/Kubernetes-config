@@ -1,7 +1,7 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: collab-cron-daily
+  name: collab-cron-weekly
   namespace: prod
 spec:
   schedule: 0 6 * * *
@@ -12,23 +12,23 @@ spec:
   jobTemplate:
     metadata:
       labels:
-        app: collab-cron-daily
+        app: collab-cron-weekly
     spec:
       backoffLimit: 1
       template:
         spec:
           restartPolicy: Never
           containers:
-          - name: cron-daily
+          - name: cron-weekly
             image: alpine:3.9
-            command: ["/bin/curl", "/scripts/script.sh"]
+            command: ["/bin/curl", "/scripts/script-weekly.sh"]
             envFrom:
             - secretRef:
-                name: collab-cron-daily-env
+                name: collab-cron-weekly-env
             volumeMounts:
-            - name: cron-daily-script
+            - name: cron-weekly-script
               mountPath: /scripts
           volumes:
-          - name: cron-daily-script
+          - name: cron-weekly-script
             configMap:
-              name: collab-cron-daily-script
+              name: collab-cron-script
