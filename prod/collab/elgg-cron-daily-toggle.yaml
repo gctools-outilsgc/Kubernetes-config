@@ -4,7 +4,7 @@ metadata:
   name: collab-cron-daily
   namespace: prod
 spec:
-  schedule: 0 6 * * *
+  schedule: 0 5 * * *
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -21,7 +21,7 @@ spec:
           containers:
           - name: cron-daily
             image: alpine:3.9
-            command: ["/bin/curl", "/scripts/script-daily.sh"]
+            command: ["/bin/sh", "/scripts/script-daily.sh"]
             envFrom:
             - secretRef:
                 name: collab-cron-daily-env

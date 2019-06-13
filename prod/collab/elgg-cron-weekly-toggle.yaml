@@ -4,7 +4,7 @@ metadata:
   name: collab-cron-weekly
   namespace: prod
 spec:
-  schedule: 0 6 * * *
+  schedule: 0 4 * * *
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 1
   failedJobsHistoryLimit: 1
@@ -21,7 +21,7 @@ spec:
           containers:
           - name: cron-weekly
             image: alpine:3.9
-            command: ["/bin/curl", "/scripts/script-weekly.sh"]
+            command: ["/bin/sh", "/scripts/script-weekly.sh"]
             envFrom:
             - secretRef:
                 name: collab-cron-weekly-env
