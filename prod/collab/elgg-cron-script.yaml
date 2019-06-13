@@ -1,0 +1,15 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: collab-cron-script
+  namespace: prod
+  labels:
+    app: collab-cron
+data:
+  script-daily.sh: |
+    apk update && apk add curl
+    /usr/bin/curl --silent http://collab/cron/daily/ > /dev/null
+  script-weekly.sh: |
+    apk update && apk add curl
+    /usr/bin/curl --silent http://collab/cron/weekly/ > /dev/null
