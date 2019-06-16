@@ -22,9 +22,6 @@ spec:
           - name: cron-daily
             image: alpine:3.9
             command: ["/bin/sh", "/scripts/script-daily.sh"]
-            envFrom:
-            - secretRef:
-                name: collab-cron-daily-env
             volumeMounts:
             - name: cron-daily-script
               mountPath: /scripts

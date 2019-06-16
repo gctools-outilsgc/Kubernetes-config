@@ -22,9 +22,6 @@ spec:
           - name: cron-weekly
             image: alpine:3.9
             command: ["/bin/sh", "/scripts/script-weekly.sh"]
-            envFrom:
-            - secretRef:
-                name: collab-cron-weekly-env
             volumeMounts:
             - name: cron-weekly-script
               mountPath: /scripts
