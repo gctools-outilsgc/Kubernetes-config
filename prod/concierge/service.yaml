@@ -31,49 +31,22 @@ spec:
         env:
         - name: "DEBUG"
           value: "False"
-        - name: "ALLOWED_HOST"
+        - name: "CONCIERGE_ALLOWED_HOSTS"
           value: "*"
-        - name: "SECRET_KEY"
+        - name: "CONCIERGE_SECRET_KEY"
           valueFrom:
             secretKeyRef:
               name: account-env
               key: secret-key
-        - name: "DB_HOST"
-          value: "account-db"
-        - name: "DB_USER"
-          value: "postgres"
-        - name: "DB_PASSWORD"
+        - name: "CONCIERGE_DATABASE_URL"
           valueFrom:
             secretKeyRef:
               name: account-env
-              key: db-password
-        - name: "FROM_EMAIL"
-          value: "donotreply@account.gccollab.ca"
-        - name: "EMAIL_HOST"
-          value: "smtp.sendgrid.net"
-        - name: "EMAIL_PORT"
-          value: "587"
-        - name: "EMAIL_USER"
-          valueFrom:
-            secretKeyRef:
-              name: account-env
-              key: email-user
-        - name: "EMAIL_PASSWORD"
-          valueFrom:
-            secretKeyRef:
-              name: account-env
-              key: email-password
+              key: db-url
         - name: "EMAIL_USE_TLS"
           value: "True"
         - name: "SITE_URL"
           value: "https://account.gccollab.ca"
-        - name: "CORS_ORIGIN_WHITELIST"
-          value: "https://wiki.gccollab.ca"
-        - name: "FRESHDESK_SECRET_KEY"
-          valueFrom:
-            secretKeyRef:
-              name: account-env
-              key: freshdesk-secret-key
         livenessProbe:
           httpGet:
             path: /login
