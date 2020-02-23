@@ -25,8 +25,7 @@ spec:
     spec:
       containers:
       - name: wiki
-        image: phanoix/gcpedia@sha256:8720c44385716a75486bec2b39858accca6d7b506f5daae8e9976f6fa0fd4924
-        #image: phanoix/gcpedia:mw1.31
+        image: phanoix/gcpedia@sha256:ccf1434e8189ed5a3745fc2ccce51c2a53b7a0b51b7122342357fa941c7b5dab
         ports:
         - containerPort: 80
         env:
