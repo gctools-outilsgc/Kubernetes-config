@@ -18,7 +18,7 @@ metadata:
   name: collab-deployment
   namespace: prod
 spec:
-  replicas: 1    # let the autoscaler handle this
+  #replicas: 1   # let the autoscaler handle this
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
       - name: collab
-        image: phanoix/gcconnex@sha256:1f24213c5d7489b22feb68b581cdd9b092d0a2db4d85da3079f70453d1eae315
+        image: phanoix/gcconnex@sha256:36c096c34cbdacc5acde245a7fe6c9dc9efcfb91433a36e1cac98e14bbf71a42
         ports:
         - containerPort: 80
         readinessProbe:
