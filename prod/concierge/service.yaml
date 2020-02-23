@@ -25,14 +25,14 @@ spec:
     spec:
       containers:
       - name: account
-        image: phanoix/concierge:latest
+        image: phanoix/concierge@sha256:fc03885619421ccd5bce80e0a41ef56aca0095fd5ca4fc79a4021eb23fc9bf04
         ports:
         - containerPort: 8000
         env:
         - name: "DEBUG"
           value: "False"
         - name: "CONCIERGE_ALLOWED_HOSTS"
-          value: "*"
+          value: '[''account.gccollab.ca'']'
         - name: "CONCIERGE_SECRET_KEY"
           valueFrom:
             secretKeyRef:
