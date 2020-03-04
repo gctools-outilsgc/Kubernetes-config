@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: collab
-  namespace: dev
+  namespace: dev-collab
   labels:
     app: collab
 spec:
@@ -17,7 +17,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: collab-deployment
-  namespace: dev
+  namespace: dev-collab
 spec:
   replicas: 1
   template: # create pods using pod definition in this template

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki
-  namespace: dev
+  namespace: dev-wiki
 spec:
   ports:
     - protocol: TCP
@@ -15,9 +15,9 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-deployment
-  namespace: dev
+  namespace: dev-wiki
 spec:
-  replicas: 1
+  replicas: # let the autoscaler handle this
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -92,7 +92,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki-pdf
-  namespace: dev
+  namespace: dev-wiki
 spec:
   clusterIP: None
   ports:
@@ -106,7 +106,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-pdf-deployment
-  namespace: dev
+  namespace: dev-wiki
 spec:
   replicas: 1
   template: # create pods using pod definition in this template
@@ -163,7 +163,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki-db
-  namespace: dev
+  namespace: dev-wiki
 spec:
   clusterIP: None
   ports: 
@@ -177,7 +177,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-db-deployment
-  namespace: dev
+  namespace: dev-wiki
 spec:
   replicas: 1 # tells deployment to run 1 pod matching the template
   template: # create pods using pod definition in this template

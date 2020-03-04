@@ -2,7 +2,7 @@
  kind: HorizontalPodAutoscaler
  metadata:
    name: wiki
-   namespace: dev
+   namespace: dev-wiki
  spec:
    minReplicas: 1
    maxReplicas: 3

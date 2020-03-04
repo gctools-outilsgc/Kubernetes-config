@@ -2,7 +2,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: dev-wiki-data-volume
-  namespace: dev
+  namespace: dev-wiki
 spec:
   capacity:
     storage: 10Gi
@@ -23,7 +23,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: dev-wiki-data-volume-claim
-  namespace: dev
+  namespace: dev-wiki
 spec:
   accessModes:
     - ReadWriteMany
@@ -37,7 +37,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: dev-wiki-db-volume
-  namespace: dev
+  namespace: dev-wiki
 spec:
   accessModes:
   - ReadWriteOnce

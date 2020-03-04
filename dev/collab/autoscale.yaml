@@ -2,7 +2,7 @@
  kind: HorizontalPodAutoscaler
  metadata:
    name: collab
-   namespace: dev
+   namespace: dev-collab
  spec:
    minReplicas: 1
    maxReplicas: 3

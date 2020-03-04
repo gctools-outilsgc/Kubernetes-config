@@ -2,7 +2,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: dev-collab-data-volume
-  namespace: dev
+  namespace: dev-collab
 spec:
   capacity:
     storage: 100Gi
@@ -23,7 +23,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: dev-collab-data-volume-claim
-  namespace: dev
+  namespace: dev-collab
 spec:
   accessModes:
     - ReadWriteMany

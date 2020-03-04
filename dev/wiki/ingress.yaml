@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: wiki-ingress
-  namespace: dev
+  namespace: dev-wiki
   annotations:
     kubernetes.io/ingress.class: nginx
     certmanager.k8s.io/cluster-issuer: letsencrypt
@@ -27,7 +27,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: pdf-ingress
-  namespace: dev
+  namespace: dev-wiki
   annotations:
     kubernetes.io/ingress.class: nginx
     certmanager.k8s.io/cluster-issuer: letsencrypt
