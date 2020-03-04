@@ -23,7 +23,7 @@ linkerd install | kubectl apply -f -
 # Install Fluxcd, sync with gitops repo
 # Requires fluxcd cli
 GHUSER="phanoix"
-GITOPS_REPO="gctools-outilsgc/flux-gitops-repo"
+GITOPS_REPO="gctools-outilsgc/Kubernetes-config"
 
 kubectl create ns flux
 
@@ -31,6 +31,8 @@ fluxctl install \
 --git-user=${GHUSER} \
 --git-email=${GHUSER}@users.noreply.github.com \
 --git-url=git@github.com:${GITOPS_REPO} \
+--git-path=dev \
+--git-readonly=true \
 --namespace=flux | kubectl apply -f -
 
 # get deploy key for the repo with
