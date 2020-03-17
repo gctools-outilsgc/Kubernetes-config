@@ -17,7 +17,7 @@ metadata:
   name: message-deployment
   namespace: prod
 spec:
-  replicas: 4
+  replicas: 5
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -48,24 +48,15 @@ spec:
             path: /api/v1/info
             port: 8005
           initialDelaySeconds: 20
-          periodSeconds: 10
-          timeoutSeconds: 6
-          failureThreshold: 3
-        # due to sticky sessions this has to be very generous, a restart in one pod that's just slow can cause more problems than it solves
-        livenessProbe:  
-          httpGet:
-            path: /api/v1/info
-            port: 8005
-          initialDelaySeconds: 360
-          periodSeconds: 12
+          periodSeconds: 20
           timeoutSeconds: 12
-          failureThreshold: 12
+          failureThreshold: 5
         resources:
           requests:
-            memory: "1536Mi"
+            memory: "2Gi"
             cpu: "900m"
           limits:
-            memory: "1536Mi"
+            memory: "2560Mi"
             cpu: "950m"
         volumeMounts:
         - mountPath: /app/uploads
