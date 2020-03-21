@@ -49,8 +49,8 @@ spec:
             port: 8005
           initialDelaySeconds: 20
           periodSeconds: 20
-          timeoutSeconds: 12
-          failureThreshold: 5
+          timeoutSeconds: 5
+          failureThreshold: 3
         resources:
           requests:
             memory: "2Gi"
