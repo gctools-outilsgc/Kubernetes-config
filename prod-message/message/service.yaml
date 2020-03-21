@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
       - name: message
-        image: rocketchat/rocket.chat:0.74.3
+        image: rocketchat/rocket.chat:3.0.4
         ports:
         - containerPort: 8005
         env:
@@ -45,7 +45,7 @@ spec:
           value: "mongodb://message-db-mongodb-replicaset-0.message-db-mongodb-replicaset:27017,message-db-mongodb-replicaset-1.message-db-mongodb-replicaset:27017/local?replicaSet=rs0"
         readinessProbe:
           httpGet:
-            path: /api/v1/info
+            path: /api/info
             port: 8005
           initialDelaySeconds: 20
           periodSeconds: 20
