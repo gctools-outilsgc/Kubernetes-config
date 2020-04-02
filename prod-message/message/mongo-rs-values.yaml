@@ -18,11 +18,11 @@ metrics:
 
 resources:
  limits:
-   cpu: 1900m
-   memory: 5120Mi
+   cpu: 2000m
+   memory: 7680Mi
  requests:
-   cpu: 1800m
-   memory: 2560Mi
+   cpu: 2000m
+   memory: 7680Mi
 
 affinity: {}
 
@@ -35,8 +35,8 @@ persistentVolume:
   ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
   ##   GKE, AWS & OpenStack)
   ##
-  storageClass: "managed-premium"
+  storageClass: "managed-premium-xfs"
   accessModes:  
     - ReadWriteOnce
-  size: 30Gi
+  size: 256Gi
   annotations: {}
