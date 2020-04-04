@@ -1,31 +1,23 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: message
-  namespace: prod
-spec:
-  clusterIP: None
-  ports:
-    - protocol: TCP
-      port: 8005
-  selector: 
-    app: message
----
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: message-deployment
-  namespace: prod
+  namespace: message
 spec:
-  replicas: 5
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message
+      rctype: worker
   template: # create pods using pod definition in this template
     metadata:
       labels:
         app: message
+        rctype: worker
     spec:
       containers:
       - name: message
-        image: rocketchat/rocket.chat:3.0.4
+        image: rocketchat/rocket.chat:3.0.12
         ports:
         - containerPort: 8005
         env:
@@ -58,10 +50,3 @@ spec:
           limits:
             memory: "2560Mi"
             cpu: "950m"
-        volumeMounts:
-        - mountPath: /app/uploads
-          name: message-data-volume
-      volumes:
-      - name: message-data-volume
-        persistentVolumeClaim:
-          claimName: message-data-volume-claim

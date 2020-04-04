@@ -1,18 +1,23 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: message-master-deployment
-  namespace: prod
+  namespace: message
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: message
+      rctype: master
   template: # create pods using pod definition in this template
     metadata:
       labels:
         app: message
+        rctype: master
     spec:
       containers:
       - name: message
-        image: rocketchat/rocket.chat:3.0.4
+        image: rocketchat/rocket.chat:3.0.12
         ports:
         - containerPort: 8005
         env:
@@ -38,15 +43,8 @@ spec:
           failureThreshold: 7
         resources:
           requests:
-            memory: "2Gi"
+            memory: "3Gi"
             cpu: "900m"
           limits:
-            memory: "2560Mi"
+            memory: "3Gi"
             cpu: "950m"
-        volumeMounts:
-        - mountPath: /app/uploads
-          name: message-data-volume
-      volumes:
-      - name: message-data-volume
-        persistentVolumeClaim:
-          claimName: message-data-volume-claim
