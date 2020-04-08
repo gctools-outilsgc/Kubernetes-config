@@ -3,7 +3,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: wiki-mysqldump-script
-  namespace: prod
+  namespace: wiki
   labels:
     app: wiki-mysqldump
 data:

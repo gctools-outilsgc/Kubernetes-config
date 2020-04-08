@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: wiki-ingress
-  namespace: prod
+  namespace: wiki
   annotations:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
@@ -26,7 +26,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: pdf-ingress
-  namespace: prod
+  namespace: wiki
   annotations:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /

@@ -3,7 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: wiki-pdf
-  namespace: prod
+  namespace: wiki
 spec:
   clusterIP: None
   ports:
@@ -16,7 +16,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: wiki-pdf-deployment
-  namespace: prod
+  namespace: wiki
 spec:
   replicas: 1
   template: # create pods using pod definition in this template
