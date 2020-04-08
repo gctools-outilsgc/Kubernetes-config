@@ -2,7 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: account
-  namespace: prod
+  namespace: account
 spec:
   minReplicas: 2
   maxReplicas: 3

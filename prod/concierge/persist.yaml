@@ -2,7 +2,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: account-data-volume
-  namespace: prod
+  namespace: account
 spec:
   capacity:
     storage: 10Gi
@@ -23,7 +23,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: account-data-volume-claim
-  namespace: prod
+  namespace: account
 spec:
   accessModes:
     - ReadWriteMany

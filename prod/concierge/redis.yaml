@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redis
-  namespace: prod
+  namespace: account
 spec:
   clusterIP: None
   ports: 
@@ -16,7 +16,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: redis-deployment
-  namespace: prod
+  namespace: account
 spec:
   replicas: 1 
   template: 

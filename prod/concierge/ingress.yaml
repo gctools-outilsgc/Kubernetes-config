@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: account-ingress
-  namespace: prod
+  namespace: account
   annotations:
     kubernetes.io/tls-acme: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /
