@@ -12,13 +12,16 @@ spec:
   selector: 
     app: collab
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: collab-deployment
   namespace: gccollab
 spec:
   #replicas: 1   # let the autoscaler handle this
+  selector:
+    matchLabels:
+      app: collab
   template: # create pods using pod definition in this template
     metadata:
       labels:

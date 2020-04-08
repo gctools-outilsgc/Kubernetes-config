@@ -11,13 +11,16 @@ spec:
   selector: 
     app: wiki
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wiki-deployment
   namespace: wiki
 spec:
   replicas: 2
+  selector:
+    matchLabels:
+      app: wiki
   template: # create pods using pod definition in this template
     metadata:
       labels:

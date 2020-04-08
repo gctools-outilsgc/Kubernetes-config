@@ -11,13 +11,16 @@ spec:
   selector:
     app: wiki-db
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wiki-db-deployment
   namespace: wiki
 spec:
   replicas: 1 # tells deployment to run 1 pod matching the template
+  selector:
+    matchLabels:
+      app: wiki-db
   template: # create pods using pod definition in this template
     metadata:
       labels:

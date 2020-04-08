@@ -12,13 +12,16 @@ spec:
   selector:
     app: account-redis
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis-deployment
   namespace: account
 spec:
   replicas: 1 
+  selector:
+    matchLabels:
+      app: account-redis
   template: 
     metadata:
       labels:

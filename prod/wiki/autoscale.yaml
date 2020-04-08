@@ -2,7 +2,7 @@ apiVersion: autoscaling/v1
 kind: HorizontalPodAutoscaler
 metadata:
   name: wiki
-  namespace: prod
+  namespace: wiki
 spec:
   minReplicas: 2
   maxReplicas: 3

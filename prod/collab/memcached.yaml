@@ -12,13 +12,16 @@ spec:
   selector: 
     app: memcached
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: memcached
   namespace: gccollab
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: memcached
   template:
     metadata:
       labels:

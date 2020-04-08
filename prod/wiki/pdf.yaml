@@ -12,13 +12,16 @@ spec:
   selector: 
     app: wiki-pdf
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wiki-pdf-deployment
   namespace: wiki
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: wiki-pdf
   template: # create pods using pod definition in this template
     metadata:
       labels:

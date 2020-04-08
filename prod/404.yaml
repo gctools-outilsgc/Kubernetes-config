@@ -12,13 +12,16 @@ spec:
   selector: 
     app: goaway
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: goaway
   namespace: prod
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: goaway
   template:
     metadata:
       labels:
