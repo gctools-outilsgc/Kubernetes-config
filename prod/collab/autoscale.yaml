@@ -2,7 +2,7 @@
  kind: HorizontalPodAutoscaler
  metadata:
    name: collab
-   namespace: prod
+   namespace: gccollab
  spec:
    minReplicas: 6
    maxReplicas: 12

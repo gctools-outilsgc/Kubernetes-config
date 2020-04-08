@@ -2,7 +2,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: collab-data-volume
-  namespace: prod
+  namespace: gccollab
 spec:
   capacity:
     storage: 500Gi
@@ -23,7 +23,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: collab-data-volume-claim
-  namespace: prod
+  namespace: gccollab
 spec:
   accessModes:
     - ReadWriteMany

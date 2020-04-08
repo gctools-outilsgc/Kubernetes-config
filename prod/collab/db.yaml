@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: collab-db
-  namespace: prod
+  namespace: gccollab
 spec:
   clusterIP: None
   ports: 
@@ -15,7 +15,7 @@ kind: "Endpoints"
 apiVersion: "v1"
 metadata:
   name: "collab-db" 
-  namespace: prod
+  namespace: gccollab
 subsets: 
 - addresses:
   - ip: "10.0.0.1"

@@ -1,8 +1,0 @@
-kind: Service
-apiVersion: v1
-metadata:
-  name: comet
-  namespace: prod
-spec:
-  type: ExternalName
-  externalName: comet.gccollab.ca

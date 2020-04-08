@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: collab-db
-  namespace: dev
+  namespace: gccollab
 spec:
   type: ExternalName
   externalName: collab.mysql.database.azure.com

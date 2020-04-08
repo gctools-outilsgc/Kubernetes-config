@@ -2,7 +2,7 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: collab-mysqldump-volume
-  namespace: prod
+  namespace: gccollab
 spec:
   capacity:
     storage: 250Gi
@@ -23,7 +23,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: collab-mysqldump-volume-claim
-  namespace: prod
+  namespace: gccollab
 spec:
   accessModes:
     - ReadWriteMany

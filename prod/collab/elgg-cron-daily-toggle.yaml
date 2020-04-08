@@ -2,7 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: collab-cron-daily
-  namespace: prod
+  namespace: gccollab
 spec:
   schedule: 0 5 * * *
   concurrencyPolicy: Forbid
