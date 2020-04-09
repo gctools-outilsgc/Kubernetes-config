@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: maintenance
+  name: maintenance
+spec:
+  ports:
+  - port: 9090
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: maintenance
+  type: ClusterIP
+---
+apiVersion: extensions/v1
+kind: Deployment
+metadata:
+  name: maintenance
+  labels:
+    app: maintenance
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: maintenance
+  template:
+    metadata:
+      labels:
+        app: maintenance
+    spec:
+      containers:
+      - image: phanoix/maint:latest
+        name: maintenance
+        ports:
+        - containerPort: 9090
+          protocol: TCP
