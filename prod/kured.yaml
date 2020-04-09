@@ -107,9 +107,9 @@ spec:
                   fieldPath: spec.nodeName
           command:
             - /usr/bin/kured
-             - --start-time 3:00
-             - --end-time 9:00
-             - --time-zone UTC
+            - --start-time=3:00
+            - --end-time=9:00
+            - --time-zone=UTC
 #            - --alert-filter-regexp=^RebootRequired$
 #            - --blocking-pod-selector=runtime=long,cost=expensive
 #            - --blocking-pod-selector=name=temperamental
