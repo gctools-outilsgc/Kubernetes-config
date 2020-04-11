@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: message-backup-script
-  namespace: message
+  namespace: default
   labels:
     app: message-backup
 data:
@@ -16,12 +16,12 @@ data:
     DATE=$(date +%Y%m%d%H%M%S)
     apt-get update && apt-get install -y curl
     echo "Pause instance 0"
-    mongo --host=message-db-mongodb-replicaset-0.message-db-mongodb-replicaset --eval="db.fsyncLock()"
+    mongo --host=message-db-mongodb-replicaset-0.message-db-mongodb-replicaset.message.svc.cluster.local --eval="db.fsyncLock()"
     echo "Create snapshot"
     TOKEN=`curl -X POST -d "grant_type=client_credentials&client_id=${APP_ID}&client_secret=${PASSWORD}&resource=https%3A%2F%2Fmanagement.azure.com%2F" https://login.microsoftonline.com/${TENANT_ID}/oauth2/token | jsonValue access_token 1`
     curl -X PUT -d "{ 'properties': { 'creationData': { 'createOption': 'Copy', 'sourceUri': '/subscriptions/"$SUBSCRIPTION_ID"/resourceGroups/"$RESOURCE_GROUP"/providers/Microsoft.Compute/disks/"$DISK_NAME"' } }, 'location': 'canadaeast' }" \
       -H "Content-type: application/json" -H "Authorization: Bearer ${TOKEN}" \
       https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/backups-message/providers/Microsoft.Compute/snapshots/${DATE}?api-version=2018-06-01
     echo "Resume instance 0"
-    mongo --host=message-db-mongodb-replicaset-0.message-db-mongodb-replicaset --eval="db.fsyncUnlock()"
+    mongo --host=message-db-mongodb-replicaset-0.message-db-mongodb-replicaset.message.svc.cluster.local --eval="db.fsyncUnlock()"
     echo "Finished database backup"

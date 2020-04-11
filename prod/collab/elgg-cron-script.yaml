@@ -2,13 +2,13 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: collab-cron-script
-  namespace: gccollab
+  namespace: collab-cron
   labels:
     app: collab-cron
 data:
   script-daily.sh: |
     apk update && apk add curl
-    /usr/bin/curl --silent http://collab/cron/daily/ > /dev/null
+    /usr/bin/curl --silent http://collab.gccollab.svc.cluster.local/cron/daily/ > /dev/null
   script-weekly.sh: |
     apk update && apk add curl
-    /usr/bin/curl --silent http://collab/cron/weekly/ > /dev/null
+    /usr/bin/curl --silent http://collab.gccollab.svc.cluster.local/cron/weekly/ > /dev/null

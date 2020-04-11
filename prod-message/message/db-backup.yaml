@@ -2,7 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: message-db-backup
-  namespace: message
+  namespace: default
 spec:
   schedule: 0 7 * * *
   concurrencyPolicy: Replace
