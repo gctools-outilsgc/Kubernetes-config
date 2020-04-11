@@ -5,6 +5,8 @@ metadata:
   namespace: wiki
   annotations:
     kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/proxy-body-size: 32m
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/server-snippet: |
       add_header X-Frame-Options SAMEORIGIN;
@@ -29,6 +31,7 @@ metadata:
   namespace: wiki
   annotations:
     kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:

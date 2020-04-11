@@ -5,6 +5,7 @@ metadata:
   namespace: account
   annotations:
     kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   tls:

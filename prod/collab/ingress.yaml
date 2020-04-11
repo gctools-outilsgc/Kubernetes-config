@@ -5,6 +5,7 @@ metadata:
   namespace: gccollab
   annotations:
     kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-body-size: 2048m
 spec:
