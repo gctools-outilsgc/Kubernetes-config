@@ -5,7 +5,7 @@ metadata:
   namespace: wiki
 spec:
   capacity:
-    storage: 10Gi
+    storage: 50Gi
   persistentVolumeReclaimPolicy: "Retain"
   storageClassName: wiki-data
   accessModes:
@@ -30,4 +30,4 @@ spec:
   storageClassName: wiki-data
   resources:
     requests:
-      storage: 10Gi
+      storage: 50Gi

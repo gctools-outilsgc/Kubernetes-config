@@ -47,15 +47,15 @@ spec:
             path: /Main_Page
             port: 80
           initialDelaySeconds: 30
-          periodSeconds: 3
-          timeoutSeconds: 1
+          periodSeconds: 5
+          timeoutSeconds: 2
           failureThreshold: 3
         livenessProbe:
           httpGet:
             path: /Main_Page
             port: 80
           initialDelaySeconds: 90
-          periodSeconds: 3
+          periodSeconds: 10
           timeoutSeconds: 3
           failureThreshold: 3
         resources:
