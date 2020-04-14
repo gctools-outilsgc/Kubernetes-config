@@ -2,7 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: account-db-backup
-  namespace: account
+  namespace: backup
 spec:
   schedule: 0 7 * * *
   concurrencyPolicy: Replace

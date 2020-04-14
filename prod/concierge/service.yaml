@@ -4,7 +4,6 @@ metadata:
   name: account
   namespace: account
 spec:
-  clusterIP: None
   ports:
     - protocol: TCP
       port: 8000
@@ -17,7 +16,7 @@ metadata:
   name: account-deployment
   namespace: account
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: account
@@ -50,14 +49,6 @@ spec:
           value: "True"
         - name: "SITE_URL"
           value: "https://account.gccollab.ca"
-        livenessProbe:
-          httpGet:
-            path: /login
-            port: 8000
-          initialDelaySeconds: 30
-          periodSeconds: 3
-          timeoutSeconds: 1
-          failureThreshold: 3
         resources:
           requests:
             memory: "128Mi"
@@ -86,13 +77,16 @@ spec:
   selector:
     app: account-db
 ---
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: account-db-deployment
   namespace: account
 spec:
   replicas: 1 # tells deployment to run 1 pod matching the template
+  selector:
+    matchLabels:
+      app: account-db
   template: # create pods using pod definition in this template
     metadata:
       labels:
@@ -116,5 +110,5 @@ spec:
         azureDisk:
           kind: Managed
           diskName: accountDBVolume
-          diskURI: /subscriptions/{sub-id}/resourcegroups/{group-name}/providers/microsoft.compute/disks/accountDBVolume
+          diskURI: /subscriptions/{sub-id}/resourcegroups/MC_AKS-Prod_CollabAKSProd_canadaeast/providers/microsoft.compute/disks/accountDBVolume
 
