@@ -5,7 +5,7 @@ metadata:
   namespace: gccollab
 spec:
   capacity:
-    storage: 500Gi
+    storage: 1250Gi
   persistentVolumeReclaimPolicy: "Retain"
   storageClassName: collab-data
   accessModes:
@@ -30,4 +30,4 @@ spec:
   storageClassName: collab-data
   resources:
     requests:
-      storage: 500Gi
+      storage: 1250Gi

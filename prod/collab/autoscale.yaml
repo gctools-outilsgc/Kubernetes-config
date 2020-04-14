@@ -4,9 +4,9 @@
    name: collab
    namespace: gccollab
  spec:
-   minReplicas: 6
-   maxReplicas: 12
-   targetCPUUtilizationPercentage: 85
+   minReplicas: 3
+   maxReplicas: 9
+   targetCPUUtilizationPercentage: 65
    scaleTargetRef:
      apiVersion: apps/v1beta1
      kind: Deployment

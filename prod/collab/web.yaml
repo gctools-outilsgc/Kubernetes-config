@@ -18,12 +18,14 @@ metadata:
   name: collab-deployment
   namespace: gccollab
 spec:
-  #replicas: 1   # let the autoscaler handle this
+  #replicas: 3   # let the autoscaler handle this
   selector:
     matchLabels:
       app: collab
   template: # create pods using pod definition in this template
     metadata:
+      annotations:
+        config.linkerd.io/skip-outbound-ports: "3306"
       labels:
         app: collab
     spec:
@@ -37,16 +39,16 @@ spec:
             path: /splash/
             port: 80
           initialDelaySeconds: 15
-          periodSeconds: 10
-          timeoutSeconds: 3
+          periodSeconds: 20
+          timeoutSeconds: 5
           failureThreshold: 3
         livenessProbe:
           httpGet:
             path: /splash/
             port: 80
           initialDelaySeconds: 90
-          periodSeconds: 20
-          timeoutSeconds: 5
+          periodSeconds: 30
+          timeoutSeconds: 10
           failureThreshold: 3
         resources:
           requests:
