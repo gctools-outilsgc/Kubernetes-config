@@ -4,7 +4,7 @@ metadata:
   name: message-deployment
   namespace: message
 spec:
-  replicas: 1
+  replicas: 5
   selector:
     matchLabels:
       app: message
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: message
-        image: rocketchat/rocket.chat:3.0.12
+        image: rocketchat/rocket.chat:3.1.1
         ports:
         - containerPort: 8005
         env:
