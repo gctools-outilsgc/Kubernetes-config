@@ -1,0 +1,95 @@
+
+logstashPipeline: 
+### ***warn*** there is a hardcoded logstash.conf in the image, override it first
+  logstash.conf: |
+    input {}
+    output {}
+  newProfile.conf: |
+    input {
+      rabbitmq {
+        id => "profile_new_input"
+        durable => true
+        exchange => "profile"
+        exchange_type => "topic"
+        heartbeat => 30
+        host => "rabbitmq.rabbitmq"
+        key => "profile.new"
+        password => "password"
+        queue => "search_listener"
+        user => "guest"
+        codec => "json"
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => "elasticsearch-master:9200"
+        action => "index"
+        manage_template => false
+        index => "profiles"
+        document_id => "%{[gcID]}"
+      }
+    }
+  deleteProfile.conf: |
+    input {
+      rabbitmq {
+        id => "profile_delete_input"
+        durable => true
+        exchange => "profile"
+        exchange_type => "topic"
+        heartbeat => 30
+        host => "rabbitmq.rabbitmq"
+        key => "profile.delete"
+        password => "password"
+        queue => "search_listener"
+        user => "guest"
+        codec => "json"
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => "elasticsearch-master:9200"
+        action => "delete"
+        manage_template => false
+        index => "profiles"
+        document_id => "%{[gcID]}"
+      }
+    }
+  changeProfile.conf: |
+    input {
+      rabbitmq {
+        id => "profile_change_input"
+        durable => true
+        exchange => "profile"
+        exchange_type => "topic"
+        heartbeat => 30
+        host => "rabbitmq.rabbitmq"
+        key => "profile.change"
+        password => "password"
+        queue => "search_listener"
+        user => "guest"
+        codec => "json"
+      }
+    }
+    output {
+      elasticsearch {
+        hosts => "elasticsearch-master:9200"
+        action => "update"
+        manage_template => false
+        index => "profiles"
+        document_id => "%{[gcID]}"
+        doc_as_upsert => true
+      }
+    }
+
+service: 
+  annotations: {}
+  type: ClusterIP
+  ports:
+    - name: beats
+      port: 5044
+      protocol: TCP
+      targetPort: 5044
+    - name: http
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
