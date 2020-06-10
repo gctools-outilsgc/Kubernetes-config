@@ -4,14 +4,15 @@ resources:
     cpu: "100m"
     memory: "256Mi"
   limits:
-    cpu: "100m"
+    cpu: "200m"
     memory: "1Gi"
 
-prometheus:
-  exporter:
-    enabled: true
-  operator:
-    enabled: false
+metrics:
+  enabled: true
 
 service:
   type: LoadBalancer
+
+persistence:
+  enabled: true
+  storageClass: managed-premium
