@@ -1,0 +1,1 @@
+helm install rabbitmq stable/rabbitmq-ha --namespace rabbitmq -f values.yaml

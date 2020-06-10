@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    name: rabbitmq
+  annotations:
+    linkerd.io/inject: enabled
+  name: rabbitmq
