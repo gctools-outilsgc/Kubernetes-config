@@ -168,4 +168,4 @@ spec:
         azureDisk:
           kind: Managed
           diskName: profileDBVolume
-          diskURI: /subscriptions/3ebd627e-fb3f-4602-afe6-af942ede0a9e/resourceGroups/MC_AKS-Directory_directoryAKSprod_canadaeast/providers/Microsoft.Compute/disks/profileDBVolume
+          diskURI: /subscriptions/{sub-id}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/disks/profileDBVolume
