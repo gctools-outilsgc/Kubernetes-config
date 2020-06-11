@@ -1,0 +1,33 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: image-data-volume
+  namespace: paas
+spec:
+  capacity:
+    storage: 100Gi
+  persistentVolumeReclaimPolicy: "Retain"
+  storageClassName: image-data
+  accessModes:
+    - ReadWriteMany
+  azureFile:
+    secretName: azure-secret
+    # a file share with this name needs to be created manually
+    shareName: image-data
+    readOnly: false
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0666
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: image-data-volume-claim
+  namespace: paas
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: image-data
+  resources:
+    requests:
+      storage: 100Gi
