@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: naas-ingress
+  namespace: naas
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - naas.gccollab.ca
+    secretName: naas-secret
+  rules:
+  - host: naas.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: notification-apollo
+          servicePort: 4000
