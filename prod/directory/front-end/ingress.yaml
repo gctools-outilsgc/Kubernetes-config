@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: directory-ingress
+  namespace: directory
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - profile.gccollab.ca
+    secretName: directory-secret
+  rules:
+  - host: profile.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: directory-fe
+          servicePort: 5000

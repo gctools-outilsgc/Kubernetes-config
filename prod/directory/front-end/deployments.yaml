@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directory-fe
+  namespace: directory
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: directory-fe
+  template: 
+    metadata:
+      labels:
+        app: directory-fe
+    spec:
+      containers:
+      - name: directory-fe
+        image: digitalcollab/directory:latest
+        ports:
+        - containerPort: 5000
+        env:
+        - name: "GQL_ENDPOINT"
+          value: "https://paas.gccollab.ca/"
+        - name: "OIDC_AUTHORITY"
+          value: "https://account.gccollab.ca/openid"
+        - name: "OIDC_SCOPE"
+          value: "openid modify_profile email profile token_introspection"
+        - name: "OIDC_REDIRECT_URI"
+          value: "https://profile.gccollab.ca/#!callback"
+        - name: "OIDC_SILENT_REDIRECT_URI"
+          value: "https://profile.gccollab.ca/#!silent"
+        - name: "OIDC_POST_LOGOUT_REDIRECT_URI"
+          value: "https://profile.gccollab.ca/#!logout"
+        - name: "OIDC_CLIENT_ID"
+          valueFrom:
+            secretKeyRef:
+              name: directory-fe-env
+              key: client_id
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "0.2"
