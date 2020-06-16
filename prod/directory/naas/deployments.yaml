@@ -14,7 +14,7 @@ spec:
         app: notification-apollo
     spec:
       containers:
-      - name: prisma
+      - name: apollo
         image: digitalcollab/notifications-apollo:latest
         ports:
         - containerPort: 4000
@@ -51,6 +51,26 @@ spec:
               key: MQ_PASS
         - name: "scope"
           value: "token_introspection"
+        readinessProbe:
+          httpGet:
+            path: /.well-known/apollo/server-health
+            port: 4000
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /.well-known/apollo/server-health
+            port: 4000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.1"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -78,6 +98,10 @@ spec:
             secretKeyRef:
               name: prisma-env
               key: PRISMA_CONFIG
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.1"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -110,6 +134,10 @@ spec:
             secretKeyRef:
               name: postgres-env
               key: POSTGRES_PASSWORD
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.1"
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           subPath: postgresql-db
@@ -119,4 +147,4 @@ spec:
         azureDisk:
           kind: Managed
           diskName: notificationDBVolume
-          diskURI: /subscriptions/{sub-id}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/disks/profileDBVolume
+          diskURI: /subscriptions/{sub-id}/resourceGroups/{resourceGroup}/providers/Microsoft.Compute/disks/notificationDBVolume
