@@ -17,7 +17,7 @@ spec:
       - name: profile-image
         image: digitalcollab/profile-image:latest
         ports:
-        - containerPort: 4466
+        - containerPort: 80
         env:
         - name: "TITLE"
           value: "OADW-Image-Server"
@@ -30,6 +30,10 @@ spec:
               key: DELETE_CODE
         - name: "LOWPROFILE"
           value: "True"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "0.05"
         volumeMounts:
         - mountPath: /usr/share/nginx/html/upload
           name: image-data-volume
@@ -57,7 +61,7 @@ spec:
       - name: apollo
         image: digitalcollab/profile-apollo:latest
         ports:
-        - containerPort: 4466
+        - containerPort: 4000
         env:
         - name: "NODE_ENV"
           value: "production"
@@ -102,6 +106,26 @@ spec:
           value: "token_introspection"
         - name: "directory_app"
           value: "https://profile.gccollab.ca"
+        readinessProbe:
+          httpGet:
+            path: /.well-known/apollo/server-health
+            port: 4000
+          initialDelaySeconds: 20
+          periodSeconds: 10
+          timeoutSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /.well-known/apollo/server-health
+            port: 4000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.1"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -129,6 +153,10 @@ spec:
             secretKeyRef:
               name: prisma-env
               key: PRISMA_CONFIG
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.1"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -161,6 +189,10 @@ spec:
             secretKeyRef:
               name: postgres-env
               key: POSTGRES_PASSWORD
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "0.1"
         volumeMounts:
         - mountPath: /var/lib/postgresql/data
           subPath: postgresql-db
