@@ -27,7 +27,7 @@ spec:
     spec:
       containers:
       - name: account
-        image: phanoix/concierge@sha256:fc03885619421ccd5bce80e0a41ef56aca0095fd5ca4fc79a4021eb23fc9bf04
+        image: phanoix/concierge@sha256:4f90be8c726ae083bfa771df8daec37a070b9091dc6ca8c4880051f3169af632
         ports:
         - containerPort: 8000
         env:
