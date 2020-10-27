@@ -94,7 +94,7 @@ spec:
               name: apollo-env
               key: MQ_PASS
         - name: "ELASTIC_HOST"
-          value: "http://elasticsearch-master.search"
+          value: "http://elasticsearch-master.search:9200"
         - name: "IMAGE_URL"
           value: "https://avatar.gccollab.ca"
         - name: "MASTERDELETECODE"
@@ -102,6 +102,11 @@ spec:
             secretKeyRef:
               name: image-env
               key: DELETE_CODE
+        - name: "GEDS_KEY"
+          valueFrom:
+            secretKeyRef:
+              name: apollo-env
+              key: GEDS_KEY
         - name: "scope"
           value: "token_introspection"
         - name: "directory_app"

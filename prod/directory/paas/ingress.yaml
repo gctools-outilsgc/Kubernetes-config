@@ -21,3 +21,27 @@ spec:
         backend:
           serviceName: profile-apollo
           servicePort: 4000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: image-ingress
+  namespace: paas
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/proxy-body-size: 8m
+spec:
+  tls:
+  - hosts:
+    - avatar.gccollab.ca
+    secretName: image-secret
+  rules:
+  - host: avatar.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: image
+          servicePort: 80
