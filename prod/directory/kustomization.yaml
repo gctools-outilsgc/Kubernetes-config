@@ -1,0 +1,7 @@
+bases:
+ - front-end
+patches:
+ - patches/fe/ingress.yaml
+
+namespace: pr-namespace
+namePrefix: test

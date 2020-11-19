@@ -1,0 +1,6 @@
+resources:
+- deployments.yaml
+- services.yaml
+- ingress.yaml
+- secrets.yaml
+- persist.yaml

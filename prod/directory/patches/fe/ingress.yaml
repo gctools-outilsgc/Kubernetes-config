@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: directory-ingress
+  namespace: directory
+spec:
+  tls:
+  - hosts:
+    - profile.test.phanoix.com
+  rules:
+  - host: profile.test.phanoix.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: directory-fe
+          servicePort: 5000
