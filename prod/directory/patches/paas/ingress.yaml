@@ -1,0 +1,37 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: paas-ingress
+  namespace: paas
+spec:
+  tls:
+  - hosts:
+    - paas.test.phanoix.com
+    secretName: paas-secret
+  rules:
+  - host: paas.test.phanoix.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: profile-apollo
+          servicePort: 4000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: image-ingress
+  namespace: paas
+spec:
+  tls:
+  - hosts:
+    - avatar.test.phanoix.com
+    secretName: image-secret
+  rules:
+  - host: avatar.test.phanoix.com
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: image
+          servicePort: 80

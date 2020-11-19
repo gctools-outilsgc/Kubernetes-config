@@ -1,7 +1,11 @@
 bases:
  - front-end
+ - paas
+ - naas
 patches:
  - patches/fe/ingress.yaml
+ - patches/naas/ingress.yaml
+ - patches/paas/ingress.yaml
 
 namespace: pr-namespace
 namePrefix: test
