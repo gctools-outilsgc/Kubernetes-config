@@ -3,3 +3,5 @@ resources:
 - services.yaml
 - ingress.yaml
 - secrets.yaml
+
+namespace: pr-123-directory

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: directory-fe
+  namespace: directory
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: directory-fe
+  template: 
+    metadata:
+      labels:
+        app: directory-fe
+    spec:
+      containers:
+      - name: directory-fe
+        image: digitalcollab/directory:latest
+        env:
+        - name: "GQL_ENDPOINT"
+          value: "https://paas.test.phanoix.com/"
+        - name: "OIDC_AUTHORITY"
+          value: "https://account.test.phanoix.com/openid"
+        - name: "OIDC_SCOPE"
+          value: "openid modify_profile email profile token_introspection"
+        - name: "OIDC_REDIRECT_URI"
+          value: "https://profile.test.phanoix.com/#!callback"
+        - name: "OIDC_SILENT_REDIRECT_URI"
+          value: "https://profile.test.phanoix.com/#!silent"
+        - name: "OIDC_POST_LOGOUT_REDIRECT_URI"
+          value: "https://profile.test.phanoix.com/#!logout"
+        - name: "OIDC_CLIENT_ID"
+          value: "123"
+        resources:
+          requests:
+            memory: "10Mi"
+            cpu: "0.02"
