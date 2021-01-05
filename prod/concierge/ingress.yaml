@@ -20,3 +20,26 @@ spec:
         backend:
           serviceName: account
           servicePort: 8000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: account-compte-ingress
+  namespace: account
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+  - hosts:
+    - account-compte.gccollab.ca
+    secretName: account-compte-secret
+  rules:
+  - host: account-compte.gccollab.ca
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: account
+          servicePort: 8000
