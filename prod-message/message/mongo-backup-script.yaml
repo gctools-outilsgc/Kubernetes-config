@@ -13,7 +13,7 @@ data:
       awk -F"[,:}]" '{for(i=1;i<=NF;i++){if($i~/'$KEY'\042/){print $(i+1)}}}' | tr -d '"' | sed -n ${num}p
     }
     echo "Started backing up database"
-    DATE=$(date +%Y%m%d%H%M%S)
+    DATE=$(date +%Y%m%d)
     apt-get update && apt-get install -y curl
     echo "Pause instance 0"
     mongo --host=message-db-mongodb-replicaset-0.message-db-mongodb-replicaset.message.svc.cluster.local --eval="db.fsyncLock()"
