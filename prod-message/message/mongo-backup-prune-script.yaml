@@ -20,7 +20,6 @@ data:
     echo "Started backup pruning"
     DATE=$(date --date='-30 days' +%Y%m%d)
     apt-get update && apt-get install -y curl
-    echo "Create snapshot"
     TOKEN=`curl -X POST -d "grant_type=client_credentials&client_id=${APP_ID}&client_secret=${PASSWORD}&resource=https%3A%2F%2Fmanagement.azure.com%2F" https://login.microsoftonline.com/${TENANT_ID}/oauth2/token | jsonValue access_token 1`
     curl -X DELETE -H "Authorization: Bearer ${TOKEN}" \
       https://management.azure.com/subscriptions/$SUBSCRIPTION_ID/resourceGroups/backups-message/providers/Microsoft.Compute/snapshots/${DATE}?api-version=2018-06-01
