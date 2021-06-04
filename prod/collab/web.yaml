@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: collab
-        image: phanoix/gcconnex@sha256:aef0f51e180cd64e69d695d66ea8849e9b67818b2a4570aacfbe7ad9e6aff921
+        image: phanoix/gcconnex@sha256:d12ea139171e3cb622531143f4eb27a8d16edd02a896d3e16dd4b3095473496d
         ports:
         - containerPort: 80
         readinessProbe:
@@ -53,10 +53,10 @@ spec:
         resources:
           requests:
             memory: "1024Mi"
-            cpu: "0.5"
+            cpu: "0.7"
           limits:
             memory: "2048Mi"
-            cpu: "0.75"
+            cpu: "0.85"
         env:
         - name: "DOCKER"
           value: ""
@@ -76,6 +76,10 @@ spec:
         volumeMounts:
         - mountPath: /sites/gccollab_data
           name: collab-data-volume
+        - mountPath: /sites/gccollab_data/views_simplecache
+          name: views-simplecache
+        - mountPath: /sites/gccollab_data/system_cache
+          name: system-cache
         - mountPath: /var/www/html/engine/settings.php
           subPath: settings.php
           name: collab-settings
@@ -89,3 +93,9 @@ spec:
       - name: collab-settings
         configMap:
           name: collab-config
+      - name: views-simplecache
+        emptyDir: {}
+      - name: system-cache
+        emptyDir: {}
+      nodeSelector:
+        agentpool: collabpool

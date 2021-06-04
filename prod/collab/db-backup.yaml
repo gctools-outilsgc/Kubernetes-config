@@ -2,7 +2,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: collab-db-backup
-  namespace: gccollab
+  namespace: backup
 spec:
   schedule: 0 6 * * *
   concurrencyPolicy: Replace

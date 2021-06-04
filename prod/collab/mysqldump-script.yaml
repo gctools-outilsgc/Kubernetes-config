@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: collab-mysqldump-script
-  namespace: gccollab
+  namespace: backup
   labels:
     app: collab-mysqldump
 data:
