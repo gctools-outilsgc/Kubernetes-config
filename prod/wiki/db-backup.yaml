@@ -20,7 +20,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: mysqldump
-            image: mariadb
+            image: mariadb:10
             command: ["/bin/bash", "/scripts/script.sh"]
             envFrom:
             - secretRef:
