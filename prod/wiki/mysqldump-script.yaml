@@ -11,8 +11,10 @@ data:
     echo "Started backing up database"
     DATE=$(date +%Y%m%d%H%M%S)
     BLOB_URL="https://${STORAGEACCOUNT}.blob.core.windows.net/wiki-db/${DATE}.sql.gz?${SAS_TOKEN}"
-    mysqldump --single-transaction -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD wiki | gzip > /${DATE}.sql.gz
-    echo "getting curl and pushing backup"
+    echo "getting curl and azcopy binary"
     apt-get update && apt-get install -y curl
-    curl -X PUT -T /${DATE}.sql.gz -H "x-ms-date: $(date -u)" -H "x-ms-blob-type: BlockBlob" "${BLOB_URL}"
+    curl -o ./azcopy "https://${STORAGEACCOUNT}.blob.core.windows.net/backup-tools/azcopy?${AZCOPY_SAS_TOKEN}"
+    echo "running mysqldump piped to azcopy"
+    chmod +x ./azcopy
+    mysqldump --single-transaction -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD wiki | gzip | ./azcopy cp "${BLOB_URL}" --from-to PipeBlob
     echo "Finished database backup"

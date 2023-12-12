@@ -9,5 +9,11 @@ data:
   script.sh: |
     echo "Started backing up database"
     DATE=$(date +%Y%m%d%H%M%S)
-    mysqldump --single-transaction -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD gccollab | gzip > /backup/${DATE}.sql.gz
+    BLOB_URL="https://${STORAGEACCOUNT}.blob.core.windows.net/collab-db/${DATE}.sql.gz?${SAS_TOKEN}"
+    echo "getting curl and azcopy binary"
+    apt-get update && apt-get install -y curl
+    curl -o ./azcopy "https://${STORAGEACCOUNT}.blob.core.windows.net/backup-tools/azcopy?${AZCOPY_SAS_TOKEN}"
+    echo "running mysqldump piped to azcopy"
+    chmod +x ./azcopy
+    mysqldump --single-transaction -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD gccollab | gzip | ./azcopy cp "${BLOB_URL}" --from-to PipeBlob
     echo "Finished database backup"
