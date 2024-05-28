@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: collab-ingress
@@ -9,6 +9,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     nginx.ingress.kubernetes.io/proxy-body-size: 2048m
 spec:
+  ingressClassName: nginx
   tls:
   - hosts:
     - gccollab.ca
@@ -18,10 +19,23 @@ spec:
     http:
       paths:
       - path: /
+        pathType: ImplementationSpecific
         backend:
-          serviceName: collab
-          servicePort: 80
+          service:
+            name: collab
+            port:
+              number: 80
       - path: /cometchat
+        pathType: ImplementationSpecific
         backend:
-          serviceName: goaway
-          servicePort: 8080
+          service:
+            name: goaway
+            port:
+              number: 8080
+      - path: /cron
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: goaway
+            port:
+              number: 8080
