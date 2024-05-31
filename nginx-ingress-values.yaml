@@ -1,18 +1,12 @@
 ## nginx configuration
-## Ref: https://github.com/kubernetes/ingress/blob/master/controllers/nginx/configuration.md
+## Ref: https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
 ##
 controller:
+  replicaCount: 2
   resources:
     requests:
       cpu: 100m
       memory: 128Mi
-
-  autoscaling:
-    enabled: true
-    minReplicas: 2
-    maxReplicas: 2
-    targetCPUUtilizationPercentage: 50
-    targetMemoryUtilizationPercentage: 100
     
   service:
     externalTrafficPolicy: Local 
