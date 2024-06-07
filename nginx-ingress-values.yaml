@@ -10,3 +10,5 @@ controller:
     
   service:
     externalTrafficPolicy: Local 
+    
+  allowSnippetAnnotations: true
