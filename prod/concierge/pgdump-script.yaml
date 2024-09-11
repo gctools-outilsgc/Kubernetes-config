@@ -8,7 +8,7 @@ metadata:
 data:
   script.sh: |
     echo "Started backing up database"
-    DATE=$(date +%Y%m%d%H%M%S)
+    DATE=$(date +%Y%m%d)
     BLOB_URL="https://${STORAGEACCOUNT}.blob.core.windows.net/account-db/${DATE}.sql.gz?${SAS_TOKEN}"
     echo "getting curl and azcopy binary"
     apt-get update && apt-get install -y curl
@@ -17,3 +17,12 @@ data:
     chmod +x ./azcopy
     pg_dump -h "$PGHOST" -U "$PGUSER" postgres | gzip | ./azcopy cp "${BLOB_URL}" --from-to PipeBlob
     echo "Finished database backup"
+
+    if [ $(date --date='-30 days' +%d) == '01' ]
+      then
+        echo "not pruning monthly backup for $(date --date='-30 days' +%B)"
+        exit
+    fi
+    echo "Pruning last month's backup"
+    PRUNE_DATE=$(date --date='-30 days' +%Y%m%d)
+    curl -X DELETE -H "x-ms-date: $(date -u)" "https://${STORAGEACCOUNT}.blob.core.windows.net/account-db/$PRUNE_DATE.sql.gz?${SAS_TOKEN}"
