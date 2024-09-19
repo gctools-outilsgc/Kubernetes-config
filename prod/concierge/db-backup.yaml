@@ -32,6 +32,3 @@ spec:
           - name: pgdump-script
             configMap:
               name: account-pgdump-script
-          - name: pgdump-volume
-            persistentVolumeClaim:
-              claimName: account-pgdump-volume-claim
