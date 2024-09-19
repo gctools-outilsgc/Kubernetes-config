@@ -20,7 +20,7 @@ spec:
           restartPolicy: Never
           containers:
           - name: pgdump
-            image: postgres:10
+            image: postgres:10-alpine
             command: ["/bin/bash", "/scripts/script.sh"]
             envFrom:
             - secretRef:
@@ -28,8 +28,6 @@ spec:
             volumeMounts:
             - name: pgdump-script
               mountPath: /scripts
-            - mountPath: /backup
-              name: pgdump-volume
           volumes:
           - name: pgdump-script
             configMap:
