@@ -11,7 +11,7 @@ data:
     DATE=$(date +%Y%m%d)
     BLOB_URL="https://${STORAGEACCOUNT}.blob.core.windows.net/account-db/${DATE}.sql.gz?${SAS_TOKEN}"
     echo "getting curl and azcopy binary"
-    apk add curl
+    apk add curl coreutils
     curl -o ./azcopy "https://${STORAGEACCOUNT}.blob.core.windows.net/backup-tools/azcopy?${AZCOPY_SAS_TOKEN}"
     echo "running pg_dump piped to azcopy"
     chmod +x ./azcopy
