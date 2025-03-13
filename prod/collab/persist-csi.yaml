@@ -35,7 +35,7 @@ spec:
   accessModes:
     - ReadWriteMany
   storageClassName: azurefile-csi
-  volumeName: collab-data
+  volumeName: collab-data-volume
   resources:
     requests:
       storage: 4500Gi
