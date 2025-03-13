@@ -1,0 +1,41 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: collab-data-volume
+  namespace: gccollab
+  annotations:
+    pv.kubernetes.io/provisioned-by: file.csi.azure.com
+spec:
+  capacity:
+    storage: 4500Gi
+  persistentVolumeReclaimPolicy: "Retain"
+  storageClassName: azurefile-csi
+  accessModes:
+    - ReadWriteMany
+  csi:
+    driver: file.csi.azure.com
+    readOnly: false
+    volumeHandle: collab-data
+    volumeAttributes:
+  #    resourceGroup: EXISTING_RESOURCE_GROUP_NAME  # optional, only set this when storage account is not in the same resource group as the cluster nodes
+      shareName: collab-data
+    nodeStageSecretRef:
+      name: azure-secret
+      namespace: gccollab
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0666
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: collab-data-volume-claim
+  namespace: gccollab
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile-csi
+  volumeName: collab-data
+  resources:
+    requests:
+      storage: 4500Gi
