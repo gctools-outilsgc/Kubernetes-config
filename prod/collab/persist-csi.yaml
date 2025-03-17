@@ -1,7 +1,7 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: collab-data-volume
+  name: collab-data-volume-csi
   namespace: gccollab
   annotations:
     pv.kubernetes.io/provisioned-by: file.csi.azure.com
@@ -29,13 +29,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: collab-data-volume-claim
+  name: collab-data-volume-claim-csi
   namespace: gccollab
 spec:
   accessModes:
     - ReadWriteMany
   storageClassName: azurefile-csi
-  volumeName: collab-data-volume
+  volumeName: collab-data-volume-csi
   resources:
     requests:
       storage: 4500Gi
