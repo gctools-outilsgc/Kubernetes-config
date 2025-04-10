@@ -32,12 +32,12 @@ metadata:
   name: collab-solr
   namespace: collab-test
 spec:
+  clusterIP: None
   selector:
     app: collab-solr
   ports:
     - protocol: TCP
       port: 8983
-  type: LoadBalancer
 ---
 kind: PersistentVolume
 apiVersion: v1
