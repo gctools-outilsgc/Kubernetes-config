@@ -15,7 +15,7 @@ data:
     curl -o ./azcopy "https://${STORAGEACCOUNT}.blob.core.windows.net/backup-tools/azcopy?${AZCOPY_SAS_TOKEN}"
     echo "running mysqldump piped to azcopy"
     chmod +x ./azcopy
-    mysqldump --single-transaction -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD gccollab | gzip | ./azcopy cp "${BLOB_URL}" --from-to PipeBlob
+    mysqldump --single-transaction --ignore-table-data=gccollab.elggusers_sessions -h "$MYSQL_HOST" -u$MYSQL_USR -p$MYSQL_PWD gccollab | gzip | ./azcopy cp "${BLOB_URL}" --from-to PipeBlob
     echo "Finished database backup"
 
     if [ $(date --date='-30 days' +%d) == '01' ]
