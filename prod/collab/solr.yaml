@@ -18,6 +18,22 @@ spec:
         image: solr:6
         ports:
         - containerPort: 8983
+        readinessProbe:
+          httpGet:
+            path: /solr/admin/cores?action=status
+            port: 8983
+          initialDelaySeconds: 15
+          periodSeconds: 90
+          timeoutSeconds: 3
+          failureThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /solr/admin/cores?action=status
+            port: 8983
+          initialDelaySeconds: 20
+          periodSeconds: 90
+          timeoutSeconds: 3
+          failureThreshold: 3
         resources:
           requests:
             memory: "1G"
