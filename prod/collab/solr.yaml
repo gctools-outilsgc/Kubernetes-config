@@ -18,6 +18,13 @@ spec:
         image: solr:6
         ports:
         - containerPort: 8983
+        resources:
+          requests:
+            memory: "1G"
+            cpu: "0.5"
+          limits:
+            memory: "2Gi"
+            cpu: "1"
         volumeMounts:
         - mountPath: /opt/solr/server/solr/mycores
           name: solr-data
