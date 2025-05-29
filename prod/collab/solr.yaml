@@ -18,6 +18,11 @@ spec:
         image: solr:6
         ports:
         - containerPort: 8983
+        env:
+        - name: "SOLR_HEAP"
+          value: "1g"
+        - name: "OOM"
+          value: "exit"
         readinessProbe:
           httpGet:
             path: /solr/admin/cores?action=status
@@ -70,7 +75,7 @@ metadata:
     pv.kubernetes.io/provisioned-by: file.csi.azure.com
 spec:
   capacity:
-    storage: 50Gi
+    storage: 100Gi
   persistentVolumeReclaimPolicy: "Retain"
   storageClassName: azurefile-csi
   accessModes:
@@ -101,4 +106,4 @@ spec:
   volumeName: collab-solr-data-volume-csi
   resources:
     requests:
-      storage: 50Gi
+      storage: 100Gi
