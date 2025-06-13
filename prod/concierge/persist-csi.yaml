@@ -1,0 +1,40 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: account-data-volume-csi
+  annotations:
+    pv.kubernetes.io/provisioned-by: file.csi.azure.com
+spec:
+  capacity:
+    storage: 10Gi
+  persistentVolumeReclaimPolicy: "Retain"
+  storageClassName: azurefile-csi
+  accessModes:
+    - ReadWriteMany
+  csi:
+    driver: file.csi.azure.com
+    readOnly: false
+    volumeHandle: account-data
+    volumeAttributes:
+      resourceGroup: aks
+      shareName: account
+    nodeStageSecretRef:
+      name: azure-secret
+      namespace: default
+  mountOptions:
+    - dir_mode=0777
+    - file_mode=0666
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: account-data-volume-claim
+  namespace: account
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: azurefile-csi
+  volumeName: account-data-volume-csi
+  resources:
+    requests:
+      storage: 10Gi
