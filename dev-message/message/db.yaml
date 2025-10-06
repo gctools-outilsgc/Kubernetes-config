@@ -45,12 +45,6 @@ spec:
         env:
         - name: "MONGODB_REPLICA_SET_MODE"
           value: "primary"
-        - name: "MONGODB_REPLICA_SET_NAME"
-          value: "rs0"
-        - name: "MONGODB_PORT_NUMBER"
-          value: "27017"
-        - name: "MONGODB_ENABLE_JOURNAL"
-          value: "true"
         resources:
           limits:
             cpu: '2'
