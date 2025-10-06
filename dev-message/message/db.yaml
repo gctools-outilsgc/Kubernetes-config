@@ -1,0 +1,85 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: message-db
+  namespace: message-dev
+spec:
+  clusterIP: None
+  ports:
+    - protocol: TCP
+      port: 27017
+  selector: 
+    app: message-db
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: message-db
+  namespace: message-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: message-db
+  template:
+    metadata:
+      labels:
+        app: message-db
+    spec:
+      hostname: message-db
+      containers:
+      - name: mongo
+        image: mongo:3.6
+        command:
+          - mongod
+        args:
+        #  - '--config=/data/configdb/mongod.conf'
+          - '--dbpath=/data/db'
+          - '--replSet=rs0'
+          - '--port=27017'
+          - '--journal'
+          - '--oplogSize=128'
+          - '--bind_ip=0.0.0.0'
+        ports:
+        - containerPort: 27017
+        env:
+        - name: "MONGODB_REPLICA_SET_MODE"
+          value: "primary"
+        - name: "MONGODB_REPLICA_SET_NAME"
+          value: "rs0"
+        - name: "MONGODB_PORT_NUMBER"
+          value: "27017"
+        - name: "MONGODB_ENABLE_JOURNAL"
+          value: "true"
+        resources:
+          limits:
+            cpu: '2'
+            memory: 6Gi
+          requests:
+            cpu: '2'
+            memory: 6Gi
+        livenessProbe:
+          exec:
+            command:
+              - mongo
+              - '--eval'
+              - db.adminCommand('ping')
+          initialDelaySeconds: 30
+          timeoutSeconds: 5
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+              - mongo
+              - '--eval'
+              - db.adminCommand('ping')
+          initialDelaySeconds: 5
+          timeoutSeconds: 1
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3
+          volumeMounts:
+            - name: datadir
+              mountPath: /data/db
