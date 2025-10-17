@@ -37,7 +37,7 @@ spec:
           - '--dbpath=/data/db'
           - '--replSet=rs0'
           - '--port=27017'
-          - '--journal'
+          - '--journal'    # becomes default and needs to be removed for mongo6+
           - '--oplogSize=128'
           - '--bind_ip=0.0.0.0'
         ports:
@@ -55,7 +55,7 @@ spec:
         livenessProbe:
           exec:
             command:
-              - mongo
+              - mongo    # change to mongosh for ~mongo6+ at the latest
               - '--eval'
               - db.adminCommand('ping')
           initialDelaySeconds: 30
@@ -66,7 +66,7 @@ spec:
         readinessProbe:
           exec:
             command:
-              - mongo
+              - mongo    # change to mongosh for ~mongo6+ at the latest
               - '--eval'
               - db.adminCommand('ping')
           initialDelaySeconds: 5
