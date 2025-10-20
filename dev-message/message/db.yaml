@@ -74,6 +74,10 @@ spec:
           periodSeconds: 10
           successThreshold: 1
           failureThreshold: 3
-          volumeMounts:
-            - name: datadir
-              mountPath: /data/db
+        volumeMounts:
+          - name: datadir
+            mountPath: /data/db
+      volumes:
+      - name: datadir
+        persistentVolumeClaim:
+          claimName: message-mongodb-volume-claim
