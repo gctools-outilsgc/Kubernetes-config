@@ -1,0 +1,33 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: message-dev-mongodb-volume-csi
+spec:
+  capacity:
+    storage: 8Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: "Retain"
+  storageClassName: managed-csi
+  accessModes:
+    - ReadWriteOnce
+  csi:
+    driver: disk.csi.azure.com
+    readOnly: false
+    volumeHandle: /subscriptions/123/resourceGroups/RG/providers/Microsoft.Compute/disks/mongo
+    volumeAttributes:
+      fsType: xfs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: message-mongodb-volume-claim
+  namespace: message-dev
+spec:
+  storageClassName: managed-csi
+  accessModes:
+    - ReadWriteOnce
+  volumeName: message-dev-mongodb-volume-csi
+  resources:
+    requests:
+      storage: 8G
