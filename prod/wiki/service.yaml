@@ -21,14 +21,14 @@ spec:
   selector:
     matchLabels:
       app: wiki
-  template: # create pods using pod definition in this template
+  template:
     metadata:
       labels:
         app: wiki
     spec:
       containers:
       - name: wiki
-        image: phanoix/gcpedia@sha256:ccf1434e8189ed5a3745fc2ccce51c2a53b7a0b51b7122342357fa941c7b5dab
+        image: phanoix/gcpedia@sha256:953ca552c0027be8f84174bfea511eea84afd0363b1063d88c81d26572508e6b
         ports:
         - containerPort: 80
         env:
@@ -71,17 +71,6 @@ spec:
         - mountPath: /var/www/html/docker_gcpedia/LocalSettings.php
           subPath: LocalSettings.php
           name: wiki-settings
-      - name: parsoid
-        image: phanoix/parsoid:local
-        ports:
-        - containerPort: 8000
-        resources:
-          requests:
-            memory: "128Mi"
-            cpu: "0.1"
-          limits:
-            memory: "256Mi"
-            cpu: "0.5"
       volumes:
       - name: wiki-data-volume
         persistentVolumeClaim:
