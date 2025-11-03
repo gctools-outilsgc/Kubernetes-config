@@ -30,4 +30,4 @@ spec:
   volumeName: wiki-db-volume-csi
   resources:
     requests:
-      storage: 32G
+      storage: 32Gi
