@@ -1,0 +1,31 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: account-db-volume-csi
+spec:
+  capacity:
+    storage: 64Gi
+  persistentVolumeReclaimPolicy: "Retain"
+  storageClassName: managed-csi
+  accessModes:
+    - ReadWriteOnce
+  csi:
+    driver: disk.csi.azure.com
+    readOnly: false
+    volumeHandle: /subscriptions/123/resourceGroups/RG/providers/Microsoft.Compute/disks/account-db-disk
+    volumeAttributes:
+      fsType: ext4
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: account-db-volume-claim
+  namespace: account
+spec:
+  storageClassName: managed-csi
+  accessModes:
+    - ReadWriteOnce
+  volumeName: account-db-volume-csi
+  resources:
+    requests:
+      storage: 64Gi
